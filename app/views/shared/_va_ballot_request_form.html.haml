@@ -1,0 +1,18 @@
+= simple_form_for @va_ballot_request do |form|
+
+  = form.fields_for :name, @va_ballot_request.name do |nf|
+    = render "shared/name_fields", form: nf
+
+  = form.fields_for :registered_address, @va_ballot_request.registered_address do |raf|
+    = render "shared/address_fields", form: raf
+
+  = form.fields_for :current_address, @va_ballot_request.current_address do |caf|
+    = render "shared/address_fields", form: caf
+
+  = form.input :ssn_four
+
+  = form.input :reason_code
+
+  = form.input :reason_support
+
+  = form.submit "Request that ballot!"
