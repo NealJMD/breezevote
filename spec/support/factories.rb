@@ -30,3 +30,12 @@ FactoryGirl.define do
   end
 
 end
+
+
+def params_for(klass, klass_sym)
+  params = attributes_for(klass_sym)
+  klass.reflect_on_all_associations.each do |assoc|
+    params[assoc.name.to_s+"_attributes"] = attributes_for(assoc.name)
+  end
+  return params
+end
