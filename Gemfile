@@ -28,7 +28,8 @@ gem 'spring',        group: :development
 
 group :test do
   gem 'rspec-rails'
-  gem 'spork'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 # Use ActiveModel has_secure_password
