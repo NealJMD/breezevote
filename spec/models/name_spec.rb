@@ -12,17 +12,17 @@ describe Name do
 
   it { should be_valid }
 
-  [[nil, 'nil'], ["", 'empty string']].each do |blank, blank_written|
+  [[nil, 'nil'], ["", 'empty string'], ["  ", 'space string']].each do |blank, blank_written|
     
     [:first_name, :last_name].each do |field|
-      it "#{blank_written} for #{field} should be invalid" do
+      it "should be valid with #{blank_written} for #{field}" do
         name[field] = blank
         expect(name).to be_invalid
       end
     end
 
     [:middle_name, :suffix].each do |field|
-      it "#{blank_written} for #{field} should be valid" do
+      it "should be valid with #{blank_written} for #{field}" do
         name[field] = blank
         expect(name).to be_valid
       end
@@ -36,11 +36,16 @@ describe Name do
     end
   end
 
-  [:first_name, :last_name, :middle_name, :suffix].each do |field|
-    it "all whitespace for #{field} should be invalid" do
-      name[field] = "      "
+  [:first_name, :last_name, :middle_name].each do |field|
+    it "should be invalid with 61 character name" do
+      name[field] = "Ponce de Leon Rodriquez Santa Maria de la Virgen de la Ladron"
       expect(name).to be_invalid
     end
+  end
+
+  it "should reject suffix of more than 10 characters" do
+    name.suffix = "Much too long"
+    expect(name).to be_invalid
   end
 
 end
