@@ -29,6 +29,15 @@ FactoryGirl.define do
     current_address
   end
 
+  factory :nc_ballot_request do
+    ssn_four "1234"
+    birthdate 20.years.ago.to_date
+    moved_recently false
+    name
+    registered_address 
+    current_address
+  end
+
 end
 
 
