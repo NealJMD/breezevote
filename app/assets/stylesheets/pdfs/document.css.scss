@@ -1,0 +1,14 @@
+.document {
+  font-family: Courier, "Courier New", monospace;
+  font-weight: normal;
+  position: absolute;
+  top: 0;
+  left: 0;
+  .positioned {
+    position: absolute;
+  }
+  .id, .created_at, .updated_at {
+    display: none;
+    visibility: hidden;
+  }
+}
