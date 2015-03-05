@@ -17,6 +17,9 @@ gem 'turbolinks'
 gem 'simple_form'
 gem 'country_select'
 gem 'haml-rails', '~> 0.8'
+gem 'wicked_pdf'
+gem 'paperclip'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305161311) do
+ActiveRecord::Schema.define(version: 20150305185526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,19 @@ ActiveRecord::Schema.define(version: 20150305161311) do
     t.boolean "moved_recently",        default: false
     t.date    "date_moved"
   end
+
+  create_table "pdf_assets", force: true do |t|
+    t.integer  "pdfable_id"
+    t.string   "pdfable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
+  end
+
+  add_index "pdf_assets", ["pdfable_id", "pdfable_type"], name: "index_pdf_assets_on_pdfable_id_and_pdfable_type", using: :btree
 
   create_table "va_ballot_requests", force: true do |t|
     t.integer  "name_id"
