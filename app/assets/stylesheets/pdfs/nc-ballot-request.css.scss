@@ -29,4 +29,17 @@
     .country          { top: 1465px; left: 1840px; }
     .zip              { top: 1430px; left: 2040px; }
   }
+  .moved_recently {
+    font-weight: bold;
+    font-size: 50px;
+    .true  { top: 990px; left: 910px; }
+    .false { top: 990px; left: 800px; }
+  }
+  .date_moved {
+    .month, .day, .year { top: 1070px; position: absolute; }
+    .month { left: 720px; }
+    .day   { left: 840px; }
+    .year  { left: 950px; }
+    .slash { display: none; }
+  }
 }
