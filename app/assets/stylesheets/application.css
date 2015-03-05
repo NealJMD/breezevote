@@ -11,6 +11,5 @@
  * file per style scope.
  *
  *= require_self
+ *= requre_tree .
  */
-
- @import "pdfs/document.css.scss";

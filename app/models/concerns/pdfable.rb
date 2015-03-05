@@ -5,16 +5,24 @@ module Pdfable
     has_one :pdf_asset, as: :pdfable, dependent: :destroy
   end
 
-  def create_pdf
+  def has_pdf_asset?
+    pdf_asset.present?
+  end
+
+  def create_pdf(directive=nil)
+    if has_pdf_asset?
+      return false unless directive == :overwrite
+      pdf_asset.destroy!
+    end
     save_pdf(render_pdf(render_html), render_filename)
   end
 
   def render_html
-    html_string = render_to_string(
+    html_string = ApplicationController.new.render_to_string(
       'shared/_document.html.haml',
       :locals => {
         :doc => self,
-        :document_name => self.name.underscore
+        :document_name => self.class.name.underscore
       },
       :layout => 'layouts/pdf.html',
       :javascript_delay => JAVASCRIPT_DELAY,
@@ -25,13 +33,13 @@ module Pdfable
   def render_pdf(html_string)
     pdf_string = WickedPdf.new.pdf_from_string(
       html_string,
-      :dpi => DPI.to_s
+      :dpi => DOCUMENT_DPI.to_s
     )
     return pdf_string
   end
 
   def render_filename
-    "#{self.name}-#{id}-#{name.safe(:first_name)}-#{name.safe(:last_name)}"
+    "#{self.class.name}-#{id}-#{name.safe(:first_name)}-#{name.safe(:last_name)}"
   end
 
   def save_pdf(pdf_string, pdf_name)
