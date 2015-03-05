@@ -11,4 +11,8 @@ class Name < ActiveRecord::Base
     return middle_name[0]
   end
 
+  def safe(field)
+    send(field).gsub(/[^A-Za-z]/, '')
+  end
+
 end

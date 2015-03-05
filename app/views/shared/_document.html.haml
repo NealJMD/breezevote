@@ -1,11 +1,12 @@
-- doc.attributes.each_pair do |field, value|
-  - if field.ends_with? "_id"
-    - child = doc.send(field.chomp("_id").to_sym)
-    - next if child.blank?
-    %div{ class: field.chomp("_id") }
-      - child.attributes.each_pair do |subfield, subvalue|
-        .positioned{ class: subfield }
-          = render_value(subvalue)
-  - else
-    .positioned{ class: field }
-      = render_value(value)
+.document{ class: document_name }
+  - doc.attributes.each_pair do |field, value|
+    - if field.ends_with? "_id"
+      - child = doc.send(field.chomp("_id").to_sym)
+      - next if child.blank?
+      %div{ class: field.chomp("_id") }
+        - child.attributes.each_pair do |subfield, subvalue|
+          .positioned{ class: subfield }
+            = render_value(subvalue)
+    - else
+      .positioned{ class: field }
+        = render_value(value)

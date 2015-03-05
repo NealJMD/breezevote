@@ -1,3 +1,6 @@
+REPORT_DPI = 75
+JAVASCRIPT_DELAY = 10 # milliseconds
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
