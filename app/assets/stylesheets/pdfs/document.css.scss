@@ -4,11 +4,16 @@
   position: absolute;
   top: 0;
   left: 0;
+  border: 2px solid green;
   .positioned {
     position: absolute;
   }
   .id, .created_at, .updated_at {
     display: none;
     visibility: hidden;
+  }
+  .month, .day, .year, .slash {
+    position: relative;
+    float: left;
   }
 }

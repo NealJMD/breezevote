@@ -6,7 +6,9 @@
       - next if child.blank?
       %div{ class: field.chomp("_id") }
         - child.attributes.each_pair do |subfield, subvalue|
-          .positioned{ class: subfield }= subvalue
+          .positioned{ class: subfield }
+            = render_value(subvalue)
     - else
-      .positioned{ class: field }= value
+      .positioned{ class: field }
+        = render_value(value)
 
