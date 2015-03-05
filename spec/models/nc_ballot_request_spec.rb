@@ -1,6 +1,7 @@
 describe NcBallotRequest do
 
   it_behaves_like "addressable", NcBallotRequest, :nc_ballot_request
+  it_behaves_like "pdfable", NcBallotRequest, :nc_ballot_request
   it_behaves_like "has ssn_four", :nc_ballot_request, true
 
   let (:request) { create :nc_ballot_request }
