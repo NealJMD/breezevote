@@ -1,0 +1,11 @@
+<style>
+  <% if document_name == "nc_ballot_request" -%>
+    .nc_ballot_request {
+      background: url(<%= asset_data_base64("pdfs/nc-request-bg.png") %>);
+    }
+  <% elsif document_name == "va_ballot_request" -%>
+    .va_ballot_request {
+      background: url(<%= asset_data_base64("pdfs/va-request-bg.png") %>);
+    }
+  <% end -%>
+</style>

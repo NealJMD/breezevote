@@ -1,3 +1,8 @@
+- skip_assets ||= false
+
+- unless skip_assets
+  = render "shared/base_64_assets", document_name: document_name
+
 .document{ class: document_name }
   - doc.attributes.each_pair do |field, value|
     - if field.ends_with? "_id"

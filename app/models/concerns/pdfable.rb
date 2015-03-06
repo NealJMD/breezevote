@@ -31,9 +31,20 @@ module Pdfable
   end
 
   def render_pdf(html_string)
+    margin = 9 # mm
     pdf_string = WickedPdf.new.pdf_from_string(
       html_string,
-      :dpi => DOCUMENT_DPI.to_s
+      :dpi => DOCUMENT_DPI.to_s,
+      :disable_smart_shrinking        => true,
+      :zoom => 0.25,
+      :margin => {:top => margin,
+                 :bottom => margin,
+                 :left => margin,
+                 :right => margin},
+      :page_size => 'letter',
+      # :width => 2410,
+      # :height => 3050
+               # :grayscale                      => true
     )
     return pdf_string
   end
