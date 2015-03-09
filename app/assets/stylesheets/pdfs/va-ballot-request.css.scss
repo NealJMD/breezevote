@@ -1,34 +1,36 @@
+// 1670 t 1820 l -> 1460 t 1550 l
+
 .va_ballot_request {
   font-size: 40px;
   .ssn_four, .reason_code, .zip {
-    font-size: 50px;
-    &.zip         { letter-spacing: 40px; }
-    &.ssn_four    { letter-spacing: 35px;}
-    &.reason_code { letter-spacing: 60px; }
+    letter-spacing: 1px;
+    &.zip         { font-size: 45px; }
+    &.ssn_four    { font-size: 40px; }
+    &.reason_code { font-size: 55px; }
   }
   .name {
-    .first_name       { top: 390px; left: 1720px; }
-    .middle_name      { top: 490px; left: 780px; }
-    .last_name        { top: 390px; left: 730px; }
-    .suffix           { top: 490px; left: 1330px; }
+    .first_name       { top: 340px; left: 1470px; }
+    .middle_name      { top: 430px; left: 660px; }
+    .last_name        { top: 340px; left: 620px; }
+    .suffix           { top: 430px; left: 1130px; }
   }
-  .ssn_four         { top: 490px; left: 2220px; }
-  .reason_support   { top: 930px; left: 1280px; }
-  .reason_code      { top: 930px; left: 810px; }
+  .ssn_four         { top: 430px; left: 1900px; }
+  .reason_support   { top: 810px; left: 1090px; }
+  .reason_code      { top: 810px; left: 690px; }
   .registered_address {
-    .street_address   { top: 1270px; left: 690px; }
-    .apartment        { top: 1270px; left: 2110px; }
-    .city             { top: 1350px; left: 630px; }
-    .zip              { top: 1350px; left: 2130px; }
+    .street_address   { top: 1110px; left: 590px; }
+    .apartment        { top: 1110px; left: 1800px; }
+    .city             { top: 1180px; left: 540px; }
+    .zip              { top: 1180px; left: 1820px; }
     .state            { display: none; }
     .country          { display: none; }
   }
   .current_address {
-    .street_address   { top: 1590px; left: 700px; }
-    .apartment        { top: 1590px; left: 2180px; }
-    .city             { top: 1680px; left: 640px; }
-    .state            { top: 1680px; left: 1310px; }
-    .country          { top: 1680px; left: 1450px; }
-    .zip              { top: 1670px; left: 1820px; }
+    .street_address   { top: 1390px; left: 600px; }
+    .apartment        { top: 1395px; left: 1860px; }
+    .city             { top: 1470px; left: 545px; }
+    .state            { top: 1470px; left: 1120px; }
+    .country          { top: 1470px; left: 1235px; }
+    .zip              { top: 1460px; left: 1550px; }
   }
 }

@@ -1,41 +1,41 @@
 .nc_ballot_request {
   font-size: 40px;
   .name {
-    .first_name       { top: 650px; left: 720px; }
-    .middle_name      { top: 650px; left: 1470px; }
-    .last_name        { top: 650px; left: 30px; }
-    .suffix           { top: 650px; left: 1950px; }
+    .first_name       { top: 605px; left: 640px; }
+    .middle_name      { top: 605px; left: 1320px; }
+    .last_name        { top: 605px; left: 30px; }
+    .suffix           { top: 605px; left: 1740px; }
   }
-  .ssn_four         { top: 1220px; left: 1010px; }
-  .license_number   { top: 1220px; left: 40px; }
-  .birthdate        { top: 650px; left: 2090px; }
+  .ssn_four         { top: 1130px; left: 900px; }
+  .license_number   { top: 1130px; left: 36px; }
+  .birthdate        { top: 605px; left: 1870px; }
   .registered_address {
-    .street_address   { top: 775px; left: 30px; }
-    .apartment        { top: 810px; left: 30px; }
-    .city             { top: 900px; left: 30px; }
-    .zip              { top: 900px; left: 960px}
-    .state            { top: 900px; left: 810px}
+    .street_address   { top: 720px; left: 30px; }
+    .apartment        { top: 750px; left: 30px; }
+    .city             { top: 840px; left: 30px; }
+    .zip              { top: 840px; left: 860px}
+    .state            { top: 840px; left: 720px}
     .country          { display: none; }
   }
   .current_address {
-    .street_address   { top: 1430px; left: 30px; }
-    .apartment        { top: 1465px; left: 30px; }
-    .city             { top: 1430px; left: 1200px; }
-    .state            { top: 1430px; left: 1840px; }
-    .country          { top: 1465px; left: 1840px; }
-    .zip              { top: 1430px; left: 2040px; }
+    .street_address   { top: 1330px; left: 30px; }
+    .apartment        { top: 1365px; left: 30px; }
+    .city             { top: 1330px; left: 1070px; }
+    .state            { top: 1330px; left: 1640px; }
+    .country          { top: 1365px; left: 1640px; }
+    .zip              { top: 1330px; left: 1820px; }
   }
   .moved_recently {
     font-weight: bold;
     font-size: 50px;
-    .true  { top: 990px; left: 910px; }
-    .false { top: 990px; left: 800px; }
+    .true  { top: 920px; left: 813px; }
+    .false { top: 920px; left: 715px; }
   }
   .date_moved {
-    .month, .day, .year { top: 1070px; position: absolute; }
-    .month { left: 720px; }
-    .day   { left: 840px; }
-    .year  { left: 950px; }
+    .month, .day, .year { top: 990px; position: absolute; }
+    .month { left: 640px; }
+    .day   { left: 750px; }
+    .year  { left: 850px; }
     .slash { display: none; }
   }
 }
