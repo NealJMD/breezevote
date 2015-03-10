@@ -38,4 +38,72 @@ describe Address do
     end
   end
 
+  describe :state do
+    it "should be invalid with a not real state" do
+      address.state = "Nicaragua"
+      expect(address).to be_invalid
+    end
+
+    it "should be invalid with a not real state code" do
+      address.state = "AB"
+      expect(address).to be_invalid
+    end
+
+    it "should be valid with a real state code" do
+      address.state = "MA"
+      expect(address).to be_valid
+      expect(address.state).to eq "MA"
+    end
+
+    it "should be valid with a real state name" do
+      address.state = "California"
+      expect(address).to be_valid
+      expect(address.state).to eq "CA"
+    end
+
+    it "should have the state code instead of name after save" do
+      address.state = "Virginia"
+      address.save!
+      expect(address.state).to eq "VA"
+    end
+
+    it "should have DC instead of name after save with bad formatting" do
+      address.state = "district of columbia "
+      address.save!
+      expect(address.state).to eq "DC"
+    end
+
+    it "should have PR instead of name after save with bad formatting" do
+      address.state = "pueRTo rico"
+      address.save!
+      expect(address.state).to eq "PR"
+    end
+  end
+
+  describe :country do
+
+    ["U.S.", "united states ", "aMERica"].each do |corruption|
+      it "should conform #{corruption} to USA" do
+        address.country = corruption
+        address.save!
+        expect(address.country).to eq "USA"
+        expect(address.is_abroad?).to eq false
+      end
+    end
+
+    it "should not conform another country to USA" do
+      address.country = "Nicaragua"
+      address.save!
+      expect(address.country).to eq "Nicaragua"
+      expect(address.is_abroad?).to eq true
+    end
+
+    it "should not conform blank to USA" do
+      address.country = "  "
+      saved = address.save
+      expect(address.country).not_to eq "USA"
+      expect(saved).to be false
+    end
+  end
+
 end
