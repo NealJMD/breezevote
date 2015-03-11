@@ -14,6 +14,10 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 
+# the version with rails 4.1 compatibility is not on RubyGems because
+# the maintainer of the project died and new devs dont have access
+gem 'haml_coffee_assets', :github => 'netzpirat/haml_coffee_assets', :ref => 'a3c2951eca'
+
 gem 'simple_form'
 gem 'country_select'
 gem 'haml-rails', '~> 0.8'

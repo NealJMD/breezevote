@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/netzpirat/haml_coffee_assets.git
+  revision: a3c2951eca005d4fcce4837b9a97a139fc022c66
+  ref: a3c2951eca
+  specs:
+    haml_coffee_assets (1.16.0)
+      coffee-script (~> 2.0)
+      sprockets (~> 2.0)
+      tilt (~> 1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -173,6 +183,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   haml-rails (~> 0.8)
+  haml_coffee_assets!
   jquery-rails
   paperclip
   pg
