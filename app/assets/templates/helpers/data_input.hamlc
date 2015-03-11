@@ -1,0 +1,9 @@
+- splitted = @field.split(".")
+- val = @ctx
+- for part in splitted
+  - val = val[part]
+- id = @id || splitted.join("_")
+- name = @name || splitted.reverse()[0].split("_").join(" ")
+
+%label{ for: id }= name
+%input{ value: val, id: id, data: { 'field-name': @field } }

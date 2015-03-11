@@ -1,6 +1,8 @@
-class window.BallotRequest extends Backbone.Model
+class window.BallotRequest extends Backbone.DeepModel
   defaults:
-    stuff: ["hey", "ya"]
+    current_address: {country: "USA"}
+    registered_address: {country: "USA"}
+
 
 
 
