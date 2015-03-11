@@ -1,0 +1,13 @@
+// CSS Reset
+// @import "reset.scss";
+
+// Core
+@import "colors";
+@import "typography";
+@import "components";
+@import "layout";
+
+// Styled patterns and elements
+@import "pages/*";
+
+body { margin: 0 };

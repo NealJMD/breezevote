@@ -1,0 +1,16 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,200,700);
+
+$sansff: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
+body {
+  font-family: $sansff;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: $sansff;
+  font-weight: 700;
+  &.medium {
+    font-weight: 400
+  }
+  &.thin {
+    font-weight: 200;
+  }
+}
