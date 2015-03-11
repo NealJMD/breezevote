@@ -1,5 +1,5 @@
 // CSS Reset
-// @import "reset.scss";
+@import "reset";
 
 // Core
 @import "colors";
@@ -9,5 +9,3 @@
 
 // Styled patterns and elements
 @import "pages/*";
-
-body { margin: 0 };
