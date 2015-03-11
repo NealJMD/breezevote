@@ -27,10 +27,9 @@ class Address < ActiveRecord::Base
   end
 
   def standardize_usa
-    standard = STANDARD_USA
     acceptable = ["united states of america", "united states", "america", "usa", "us"]
     if acceptable.include? country.downcase.strip.gsub(/[^a-z ]/, '')
-      self.country = standard
+      self.country = STANDARD_USA
     end
   end
 
