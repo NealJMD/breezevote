@@ -503,7 +503,9 @@ Backbone.Validation = (function(_){
 
     // Converts attributeName or attribute_name to Attribute name
     sentenceCase: function(attrName) {
-      return attrName.replace(/(?:^\w|[A-Z]|\b\w)/g, function(match, index) {
+      var splitted = attrName.split('.');
+      var query = splitted[splitted.length-1];
+      return query.replace(/(?:^\w|[A-Z]|\b\w)/g, function(match, index) {
         return index === 0 ? match.toUpperCase() : ' ' + match.toLowerCase();
       }).replace(/_/g, ' ');
     },
