@@ -16,6 +16,7 @@ class window.BallotRequestView extends Backbone.View
 
   changed: (evt) ->
     $changed = $(evt.currentTarget)
+    @changed_id = $changed.attr('id')
     value = $changed.val()
     field = $changed.data('field-name')
     @model.set(field, value)
@@ -29,6 +30,8 @@ class window.BallotRequestView extends Backbone.View
 
   render: ->
     @$el.html(@template(@model.attributes))
+    # re-rendering obliterates tab-next, so manually re-focus
+    $('#'+@changed_id).nextAll('input').first().focus() if @changed_id
     return this
 
   template: (attributes)->

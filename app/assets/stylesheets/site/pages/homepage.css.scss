@@ -2,6 +2,7 @@
   .color-immersion {
     &.landing-splash {
       padding: 260px 0;
+      background-color: $dark_red;
       background-image: asset-url('election_2008_queue_red.jpg');
       background-size: cover;
       background-repeat: no-repeat;
@@ -15,6 +16,7 @@
         text-align: center;
         font-weight: 200;
         font-size: 35px;
+        margin: 10px 0;
       }
       .explanation {
         @include centered-to-full(600px);
@@ -25,7 +27,13 @@
       }
     }
     &.explanation {
-      background-color: $medium_gray;
+      display: none;
+    }
+    &.get-started {
+      background-color: $light_blue;
+      .form {
+        @include centered-to-full(600px);
+      }
     }
   }
 }
