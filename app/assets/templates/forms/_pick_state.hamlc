@@ -1,1 +1,1 @@
-!= JST['helpers/data_input'](field: "registered_address.state", ctx: @ctx, options: [["", "Please select"], ["VA", "Virginia"], ["NC", "North Carolina"]])
+!= JST['helpers/data_input'](field: "registered_address.state", ctx: @ctx, options: [["", "Please select"], ["VA", "Virginia"], ["NC", "North Carolina"]], label: " ")
