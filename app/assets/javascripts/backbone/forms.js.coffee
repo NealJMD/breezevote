@@ -1,9 +1,17 @@
 
 _.extend Backbone.Validation.callbacks, 
   valid: (view, attr, selector) ->
-    console.log(view, attr, selector)
-  invalid: (view, attr, error, selector) ->
-    console.log(view, attr, error, selector)
+    selector = '#'+attr.split(".").join("_")
+    $parent = view.$(selector).parents('.field')
+    $parent.removeClass('error')
+    $parent.find(".inline-error").remove()
+    console.log(attr, selector)
+  invalid: (view, attr, error, field) ->
+    selector = '#'+attr.split(".").join("_")
+    $parent = view.$(selector).parents('.field')
+    $parent.addClass('error')
+    $parent.prepend("<label class='inline-error'>#{error}</label>")
+    console.log(attr, error, selector)
 
 class window.BallotRequest extends Backbone.DeepModel
   defaults:
@@ -12,7 +20,7 @@ class window.BallotRequest extends Backbone.DeepModel
     name: {}
 
   validation: 
-    'registered_address.street':
+    'registered_address.street_address':
       required: true
     'registered_address.city':
       required: true
@@ -27,7 +35,7 @@ class window.BallotRequest extends Backbone.DeepModel
       oneOf: ['USA']
       required: true
       msg: 'You must be registered to vote in the USA.'
-    'current_address.street':
+    'current_address.street_address':
       required: true
     'current_address.city':
       required: true

@@ -23,7 +23,7 @@
 - spans = @span_width || 4
 
 
-%div{ class: "span-#{spans}"}
+.field{ class: "span-#{spans}"}
 
   %label{ for: id }= label
 
