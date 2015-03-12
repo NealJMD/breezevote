@@ -1,7 +1,0 @@
-- data_input = JST['helpers/data_input']
-
-%h3 Well here we are!
-
-!= data_input(field: 'registered_address.street_address', ctx: this)
-!= data_input(field: 'registered_address.state', ctx: this)
-!= data_input(field: 'registered_address.country', ctx: this)

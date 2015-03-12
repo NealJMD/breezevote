@@ -1,9 +1,40 @@
+-### # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+-#
+-#   API
+-#
+-#   field: string naming the field on the Backbone model. 
+-#        "name.first_name" will nest
+-#   ctx: the attributes of the Backbone model
+-#   options: (optional) if given, makes a select box with these as choices
+-#         should be given as a list of [value, display_text] pairs
+-#   id: (optional) the id of the input
+-#   label: (optional) the text to display on the label
+-# 
+-### # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
 - splitted = @field.split(".")
 - val = @ctx
 - for part in splitted
   - val = val[part]
 - id = @id || splitted.join("_")
-- name = @name || splitted.reverse()[0].split("_").join(" ")
+- label = @label || splitted.reverse()[0].split("_").join(" ")
 
-%label{ for: id }= name
-%input{ value: val, id: id, data: { 'field-name': @field } }
+%label{ for: id }= label
+
+- if @options
+  -### Dropdown selct menu
+  %select{ id: id, data: { 'field-name': @field } }
+    - for value_and_display in @options
+      - value = value_and_display[0]
+      - display = value_and_display[1]
+      - if value == val
+        %option{ value: value, selected: true }= display
+      - else
+        %option{ value: value }= display
+- else
+  -### Regular text input
+  - if @disabled
+    %input{ value: val, id: id, disabled: true, data: { 'field-name': @field } }
+  - else
+    %input{ value: val, id: id, data: { 'field-name': @field } }

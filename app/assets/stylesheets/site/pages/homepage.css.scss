@@ -19,7 +19,8 @@
         margin: 10px 0;
       }
       .explanation {
-        @include centered-to-full(600px);
+        text-align: center;
+        @include centered-to-full(630px);
         margin-top: 20px;
         font-size: 19px;
         font-weight: 200;

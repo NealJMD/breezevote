@@ -2,6 +2,7 @@ class window.BallotRequest extends Backbone.DeepModel
   defaults:
     current_address: {country: "USA"}
     registered_address: {country: "USA"}
+    name: {}
 
 
 

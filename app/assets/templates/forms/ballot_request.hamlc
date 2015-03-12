@@ -1,0 +1,15 @@
+- data_input = JST['helpers/data_input']
+
+/ %h3 Well here we are!
+
+!= JST["forms/pick_state"](ctx: this)
+
+%h3 Name
+!= JST["forms/name"](ctx: this)
+%h3 Registered Address
+!= JST["forms/address"](field: 'registered_address', ctx: this)
+%h3 Current Address
+!= JST["forms/address"](field: 'current_address', ctx: this)
+- if @registered_address.state
+  %h3 Additional info
+  / != JST["forms/state_specific"]
