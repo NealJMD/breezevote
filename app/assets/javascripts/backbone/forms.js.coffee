@@ -1,8 +1,42 @@
+
+_.extend Backbone.Validation.callbacks, 
+  valid: (view, attr, selector) ->
+    console.log(view, attr, selector)
+  invalid: (view, attr, error, selector) ->
+    console.log(view, attr, error, selector)
+
 class window.BallotRequest extends Backbone.DeepModel
   defaults:
     current_address: {country: "USA"}
     registered_address: { state: "", country: "USA" }
     name: {}
+
+  validation: 
+    'registered_address.street':
+      required: true
+    'registered_address.city':
+      required: true
+    'registered_address.state':
+      required: true
+      length: 2
+    'registered_address.zip':
+      required: true
+      length: 5
+      msg: 'Please enter a 5 digit zip code.'
+    'registered_address.country':
+      oneOf: ['USA']
+      required: true
+      msg: 'You must be registered to vote in the USA.'
+    'current_address.street':
+      required: true
+    'current_address.city':
+      required: true
+    'current_address.country':
+      required: true
+    'name.first_name': 
+      required: true
+    'name.last_name':
+      required: true
 
   type: () ->
     state = @get('registered_address').state.toLowerCase()
@@ -16,10 +50,14 @@ class window.BallotRequest extends Backbone.DeepModel
     return params
 
   save: () ->
-    type = @type()
-    params = @authenticity_params()
-    params[type] = @toJSON()
-    BVUtils.post('/'+type+'s', params)
+    @validate()
+    if @isValid()
+      type = @type()
+      params = @authenticity_params()
+      params[type] = @toJSON()
+      # BVUtils.post('/'+type+'s', params)
+    else
+      console.log("validation failed")
 
 
 
@@ -42,7 +80,8 @@ class window.BallotRequestView extends Backbone.View
     @model.save()
 
   initialize: ->
-    @listenTo(@model, "change", @render);
+    @listenTo(@model, "change", @render)
+    Backbone.Validation.bind this
     @render()
 
   render: ->

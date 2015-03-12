@@ -1,5 +1,3 @@
-/ %h3 Well here we are!
-
 .form
   .section
     %h3 State

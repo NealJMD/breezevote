@@ -16,6 +16,7 @@
 //= require underscore
 //= require json2
 //= require backbone
+//= require backbone_validation
 //= require backbone_deep_model
 //= require_tree ../templates
 //= require_tree .
