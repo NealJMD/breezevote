@@ -1,5 +1,3 @@
-- data_input = JST['helpers/data_input']
-
 / %h3 Well here we are!
 
 != JST["forms/pick_state"](ctx: this)
@@ -12,4 +10,7 @@
 != JST["forms/address"](field: 'current_address', ctx: this)
 - if @registered_address.state
   %h3 Additional info
-  / != JST["forms/state_specific"]
+  - try
+    != JST["forms/state_specific/#{@registered_address.state}"](ctx: this)
+  - catch error
+    Please select a state from the dropdown
