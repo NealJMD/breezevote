@@ -1,9 +1,9 @@
 - data_input = JST['helpers/data_input']
 
-!= data_input(field: "#{@field}.street_address", ctx: @ctx)
-!= data_input(field: "#{@field}.apartment", ctx: @ctx)
-!= data_input(field: "#{@field}.city", ctx: @ctx)
-!= data_input(field: "#{@field}.zip", ctx: @ctx)
-!= data_input(field: "#{@field}.state", ctx: @ctx, disabled: (@field == "registered_address"))
+!= data_input(field: "#{@field}.street_address", ctx: @ctx, span_width: 6)
+!= data_input(field: "#{@field}.apartment", ctx: @ctx, span_width: 6)
+!= data_input(field: "#{@field}.city", ctx: @ctx, span_width: 4)
+!= data_input(field: "#{@field}.zip", ctx: @ctx, span_width: 3)
+!= data_input(field: "#{@field}.state", ctx: @ctx, disabled: (@field == "registered_address"), span_width: 2)
 - unless @field == "registered_address"
-  != data_input(field: "#{@field}.country", ctx: @ctx)
+  != data_input(field: "#{@field}.country", ctx: @ctx, span_width: 3)

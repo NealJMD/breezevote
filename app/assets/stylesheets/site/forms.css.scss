@@ -2,16 +2,45 @@
   label {
     text-transform: capitalize;
     display: block;
-    margin: 20px 0 3px
+    margin: 15px 0 3px
   }
   input, select {
-    padding: 10px;
+    padding: 10px 5%;
     font-size: 15px;
     border-radius: 4px;
     border: none;
     font-family: $sansff;
+    width: 90%;
   }
   select {
     height: 38px;
+  }
+  .section {
+    float: left;
+    width: 100%;
+    margin-bottom: 35px;
+  }
+
+  $full-width: 600px;
+  $half-width: 360px;
+  $columns: 12;
+  $col-width: 100% / $columns;
+  @media(min-width: $full-width) {
+    @for $i from 2 through $columns {
+      .span-#{$i} {
+        float: left;
+        width: $col-width * ($i - 0.5);
+        margin-right: $col-width * 0.5;
+      }
+    }
+  }
+  @media(min-width: $half-width) and (max-width: $full-width) {
+    @for $i from 2 through $columns {
+      .span-#{$i} {
+        float: left;
+        width: 45%;
+        margin-right: 5%;
+      }
+    }
   }
 }

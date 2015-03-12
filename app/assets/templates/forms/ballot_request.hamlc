@@ -1,16 +1,24 @@
 / %h3 Well here we are!
 
-!= JST["forms/pick_state"](ctx: this)
+.section
+  != JST["forms/pick_state"](ctx: this)
 
-%h3 Name
-!= JST["forms/name"](ctx: this)
-%h3 Registered Address
-!= JST["forms/address"](field: 'registered_address', ctx: this)
-%h3 Current Address
-!= JST["forms/address"](field: 'current_address', ctx: this)
+.section
+  %h3 Name
+  != JST["forms/name"](ctx: this)
+
+.section
+  %h3 Registered Address
+  != JST["forms/address"](field: 'registered_address', ctx: this)
+
+.section
+  %h3 Current Address
+  != JST["forms/address"](field: 'current_address', ctx: this)
+
 - if @registered_address.state
-  %h3 Additional info
-  - try
-    != JST["forms/state_specific/#{@registered_address.state}"](ctx: this)
-  - catch error
-    Please select a state from the dropdown
+  .section
+    %h3 Additional info
+    - try
+      != JST["forms/state_specific/#{@registered_address.state}"](ctx: this)
+    - catch error
+      Please select a state from the dropdown
