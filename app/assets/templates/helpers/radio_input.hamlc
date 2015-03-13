@@ -6,6 +6,7 @@
 -#        "name.first_name" will nest
 -#   ctx: the attributes of the Backbone model
 -#   options: should be given as a list of [value, display_text] pairs
+-#   revealed_field: (optional) the default field to be revealed
 -#   label: (optional) the label above the form
 -#   id: (optional) the id of the input
 -#   span_width: (optional) the number of grid columns to span. defaults to 12
@@ -30,8 +31,13 @@
 
     - for value_and_display in @options
       .radio-option
-        %input{ type: "radio", name: id, id: "#{id}_#{value_and_display[0]}", value: value_and_display[0] }
+        / add thing to do if val matches val then selected
+        %input{ type: "radio", name: id, id: "#{id}_#{value_and_display[0]}", value: value_and_display[0], data: {'field-name': @field} }
         %label{ for: "#{id}_#{value_and_display[0]}" }= value_and_display[1]
+      -if value_and_display.length > 2 and value_and_display[2].length
+        .subfield{ 'data-reveal-field': @field, 'data-reveal-value': value_and_display[0] }
+          - subfield = if value_and_display.length > 3 then value_and_display[3] else @revealed_field
+          != JST['helpers/data_input'](field: subfield, label: value_and_display[2], ctx: @ctx)
 
 
   /   %select{ id: id, data: { 'field-name': @field } }

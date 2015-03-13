@@ -22,6 +22,6 @@
   - ["8A", "Authorized representative of candidate or party serving inside the polling place", ""]]
 
 
-  != JST['helpers/radio_input'](field: "reason_code", options: reason_code_options, ctx: @ctx)
+  != JST['helpers/radio_input'](field: "reason_code", options: reason_code_options, ctx: @ctx, revealed_field: "reason_support")
   != data_input(field: "ssn_four", ctx: @ctx)
   
