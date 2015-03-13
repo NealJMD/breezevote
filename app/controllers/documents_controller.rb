@@ -32,10 +32,14 @@ class DocumentsController < ApplicationController
   end
 
   def update
-    if @document.update(strong_params)
-      redirect_to @document, notice: '#{title} was successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      if @document.update(strong_params)
+        format.html { redirect_to @document, notice: '#{title} was successfully updated.' }
+        format.json { render json: { redirect: path(:show, @document.id) }, status: 203 }
+      else
+        format.html { render :edit }
+        format.json { render json: { errors: @document.errors }, status: 422 }
+      end
     end
   end
 
