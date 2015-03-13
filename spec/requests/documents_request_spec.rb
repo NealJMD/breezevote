@@ -5,7 +5,11 @@ describe DocumentsController, :type => :request do
   let(:params) { params_for(model, class_sym) }
   let(:class_name) { class_sym.to_s }
   let(:base_path) { "/#{class_name.pluralize}" }
-  let(:bad_params) { {herp: "derp"} }
+  let(:bad_params) { params_for(model, class_sym) }
+
+  before :each do
+    bad_params[:name_attributes][:first_name] = "    "
+  end
 
   describe :create do
 
@@ -66,9 +70,8 @@ describe DocumentsController, :type => :request do
     describe :html do
 
       describe :success do
-        it "should update timestamp and redirect" do
+        it "should redirect" do
           expect{ put @path, class_sym => @new_params }.to change{ model.count }.by 0
-          expect(model.last.updated_at).not_to eq @last_updated
           expect(response).to redirect_to(model.last)
         end
 
@@ -85,13 +88,11 @@ describe DocumentsController, :type => :request do
 
       describe :rejection do
 
-        let(:bad_params) { {herp: "derp"} }
-
-        it "should not save update timesteamp or redirect" do
+        it "should not save update timestamp or redirect" do
           expect{ put @path, class_sym => bad_params }.to change{ model.count }.by 0
           expect(model.last.updated_at).to eq @last_updated
-          expect(response).to be_success
           expect(response).to render_template :edit
+          expect(response).to be_success
         end
 
         it "should not update addresses" do

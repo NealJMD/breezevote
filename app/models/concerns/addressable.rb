@@ -6,7 +6,7 @@ module Addressable
     belongs_to :current_address, class_name: :Address
     belongs_to :registered_address, class_name: :Address
 
-    accepts_nested_attributes_for :name, :current_address, :registered_address
+    accepts_nested_attributes_for :name, :current_address, :registered_address, update_only: true
 
     validates :name, presence: true
     validates :current_address, presence: true
