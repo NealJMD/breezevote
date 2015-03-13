@@ -57,13 +57,21 @@ class window.BallotRequest extends Backbone.DeepModel
            $("meta[name='csrf-token']").attr('content')
     return params
 
+  isNew: () ->
+    return !@get('id')?
+
   save: () ->
     @validate()
     if @isValid()
       type = @type()
       params = @authenticity_params()
       params[type] = @toJSON()
-      # BVUtils.post('/'+type+'s', params)
+      if @isNew()
+        console.log("is new, calling to",'/'+type+'s')
+        BVUtils.post('/'+type+'s', params)
+      else
+        console.log("is old, calling to",'/'+type+'s/'+@get('id'))
+        BVUtils.post('/'+type+'s/'+@get('id'), params, 'put')
     else
       console.log("validation failed")
 
@@ -102,5 +110,6 @@ class window.BallotRequestView extends Backbone.View
     JST["forms/ballot_request"](attributes)
 
 $ ->
-  request_model = new BallotRequest()
+  init = window.BVDoc || {}
+  request_model = new BallotRequest(init)
   request_view = new BallotRequestView(model: request_model)
