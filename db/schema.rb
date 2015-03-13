@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305185526) do
+ActiveRecord::Schema.define(version: 20150313191629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,14 +37,16 @@ ActiveRecord::Schema.define(version: 20150305185526) do
   end
 
   create_table "nc_ballot_requests", force: true do |t|
-    t.integer "name_id"
-    t.integer "current_address_id"
-    t.integer "registered_address_id"
-    t.string  "ssn_four"
-    t.string  "license_number"
-    t.date    "birthdate"
-    t.boolean "moved_recently",        default: false
-    t.date    "date_moved"
+    t.integer  "name_id"
+    t.integer  "current_address_id"
+    t.integer  "registered_address_id"
+    t.string   "ssn_four"
+    t.string   "license_number"
+    t.date     "birthdate"
+    t.boolean  "moved_recently",        default: false
+    t.date     "date_moved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "pdf_assets", force: true do |t|
