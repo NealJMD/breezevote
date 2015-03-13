@@ -19,7 +19,7 @@ class window.BallotRequest extends Backbone.DeepModel
     registered_address: { state: "", country: "USA" }
     name: {}
 
-  validation: 
+  validation:
     'registered_address.street_address':
       required: true
     'registered_address.city':
@@ -84,10 +84,11 @@ class window.BallotRequestView extends Backbone.View
   events:
     "click .submit": "submit"
     "change input,select,textarea" : "changed"
+    "cut input,select,textarea" : "changed"
+    "paste input,select,textarea" : "changed"
 
   changed: (evt) ->
     $changed = $(evt.currentTarget)
-    @changed_id = $changed.attr('id')
     value = $changed.val()
     field = $changed.data('field-name')
     @model.set(field, value)
@@ -96,14 +97,25 @@ class window.BallotRequestView extends Backbone.View
     @model.save()
 
   initialize: ->
-    @listenTo(@model, "change", @render)
+    @listenTo(@model, "change", @update)
     Backbone.Validation.bind this
     @render()
 
+  update: () ->
+    conditions = _.map @$("[data-reveal-field]"), (f) ->
+      $f = @$(f)
+      [$f.data('reveal-field'), $f.data('reveal-value'), $f]
+    for [field, desired, $f] in conditions
+      actual = @model.get(field)
+      if actual is desired or (desired is '*' and actual?)
+        $f.show()
+      else
+        $f.hide()
+
+    console.log(@model.attributes)
+
   render: ->
     @$el.html(@template(@model.attributes))
-    # re-rendering obliterates tab-next, so manually re-focus
-    $('#'+@changed_id).nextAll('input').first().focus() if @changed_id
     return this
 
   template: (attributes)->

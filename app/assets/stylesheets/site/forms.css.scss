@@ -21,6 +21,9 @@
     width: 100%;
     margin-bottom: 35px;
   }
+  [data-reveal-field] {
+    display: none;
+  }
   .field.error {
     input {
       border-color: $dark_red;

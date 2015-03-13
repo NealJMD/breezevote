@@ -1,3 +1,6 @@
 - data_input = JST['helpers/data_input']
 
-!= data_input(field: "reason_code", ctx: @ctx)
+.va-fields{ 'data-reveal-field': 'registered_address.state', 'data-reveal-value': 'VA' }
+  != data_input(field: "ssn_four", ctx: @ctx)
+  != data_input(field: "reason_code", ctx: @ctx)
+  != data_input(field: "reason_support", ctx: @ctx)
