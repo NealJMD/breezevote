@@ -1,6 +1,27 @@
 - data_input = JST['helpers/data_input']
 
 .va-fields{ 'data-reveal-field': 'registered_address.state', 'data-reveal-value': 'VA' }
+  - reason_code_options = [["1A", "Student attending college or university outside of locality of residence in Virginia", "Name of college or university"],
+  - ["1B", "Spouse of student attending college or university outside locality of residence in Virginia", "Name of college or university"],
+  - ["1C", "Business outside County/City of residence on election day", "Name of employer or business"],
+  - ["1D", "Personal business or vacation outside County/City of residence on election day", "Place of travel (VA county/city or state or country)"],
+  - ["1E", "I am working and commuting to/from home for 11 or more hours between 6:00 AM and 7:00 PM on election day", "Name of employer or business and election day hours of working and commuting (AM to PM)"],
+  - ["1F", "I am a first responder (member of law enforcement, fire fighter, emergency technician, search and rescue)", ""],
+  - ["2A", "My disability or illness", ""],
+  - ["2B", "I am primarily and personally responsible for the care of a disabled/ill family member confined at home", "Family Relationship"],
+  - ["2C", "My pregnancy", ""],
+  - ["3A", "Confined, awaiting trial", "Name of institution"],
+  - ["3B", "Confined, convicted of a misdemeanor", "Name of institution"],
+  - ["4A", "An electoral board member, registrar, officer of election, or custodian of voting equipment", ""],
+  - ["5A", "I have a religious obligation", "Nature of obligation"],
+  - ["6A", "Active Duty Merchant Marine or Armed Forces", "Branch of service"],
+  - ["6B", "Spouse or dependent living with a member of merchant marine or armed forces", "Branch of service"],
+  - ["6C", "Temporarily residing outside of US", "Enter your last date of residency at your Virginia voting residence only if you have given up that address permanently or have no intent to return"],
+  - ["6D", "Temporarily residing outside of US for employment or spouse or dependent residing with employee", "Name of business or employer"],
+  - ["7A", "Requesting a ballot for presidential and vice-presidential electors only (Ballots for other offices/issues will not be sent)", "New state of residence and date moved from Virginia. Only eligible if you moved less than 30 days before the presidential election."],
+  - ["8A", "Authorized representative of candidate or party serving inside the polling place", ""]]
+
+
+  != JST['helpers/radio_input'](field: "reason_code", options: reason_code_options, ctx: @ctx)
   != data_input(field: "ssn_four", ctx: @ctx)
-  != data_input(field: "reason_code", ctx: @ctx)
-  != data_input(field: "reason_support", ctx: @ctx)
+  

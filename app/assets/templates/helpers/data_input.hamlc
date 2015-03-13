@@ -27,8 +27,8 @@
 
   %label{ for: id }= label
 
-  - if @options
-    -### Dropdown selct menu
+  - if @options?
+    -### Dropdown select menu
     %select{ id: id, data: { 'field-name': @field } }
       - for value_and_display in @options
         - value = value_and_display[0]
