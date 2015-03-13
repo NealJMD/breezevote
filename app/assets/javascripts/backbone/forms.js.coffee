@@ -30,7 +30,7 @@ class window.BallotRequest extends Backbone.DeepModel
     'registered_address.zip':
       required: true
       length: 5
-      msg: 'Please enter a 5 digit zip code.'
+      msg: 'Zip code must be 5 digits'
     'registered_address.country':
       oneOf: ['USA']
       required: true
@@ -71,7 +71,7 @@ class window.BallotRequest extends Backbone.DeepModel
 
 class window.BallotRequestView extends Backbone.View
 
-  el: "#ballot_request_view"
+  el: "#ballot_request_form"
 
   events:
     "click .submit": "submit"
