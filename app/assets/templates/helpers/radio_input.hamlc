@@ -37,7 +37,7 @@
       -if value_and_display.length > 2 and value_and_display[2].length
         .subfield{ 'data-reveal-field': @field, 'data-reveal-value': value_and_display[0] }
           - subfield = if value_and_display.length > 3 then value_and_display[3] else @revealed_field
-          != JST['helpers/data_input'](field: subfield, label: value_and_display[2], ctx: @ctx)
+          != JST['helpers/data_input'](field: subfield, label: value_and_display[2], ctx: @ctx, span_width: 12)
 
 
   /   %select{ id: id, data: { 'field-name': @field } }
