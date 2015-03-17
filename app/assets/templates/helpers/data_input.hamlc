@@ -15,14 +15,20 @@
 -### # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
+- getVal = (fields) =>
+  - val = @ctx
+  - for part in fields
+    - val = val[part]
+  - return val
+
+- default_type = "string"
+- type = @type || default_type
+
 - splitted = @field.split(".")
-- val = @ctx
-- for part in splitted
-  - val = val[part]
+- val = getVal(splitted) if type isnt "date"
 - id = @id || splitted.join("_")
 - label = @label || splitted.reverse()[0].split("_").join(" ")
 - spans = @span_width || 4
-- type = @type || "string"
 
 
 .field{ class: "span-#{spans}"}
@@ -41,7 +47,8 @@
         -if value_and_display.length > 2 and value_and_display[2].length
           .subfield{ 'data-reveal-field': @field, 'data-reveal-value': value_and_display[0] }
             - subfield = if value_and_display.length > 3 then value_and_display[3] else @revealed_field
-            != JST['helpers/data_input'](field: subfield, label: value_and_display[2], ctx: @ctx, span_width: 12)
+            - subtype = if value_and_display.length > 4 then value_and_display[4] else default_type
+            != JST['helpers/data_input'](field: subfield, label: value_and_display[2], ctx: @ctx, span_width: 12, type: subtype)
 
   - else if type is "select"
 
@@ -55,6 +62,39 @@
           %option{ value: value, selected: true }= display
         - else
           %option{ value: value }= display
+
+  - else if type is "date"
+
+    %label{ for: id }= "#{label} (MM/DD/YYYY)"
+
+    .date-fields
+      %select{ class: 'month', data: { 'field-name': "#{@field}(2i)" } }
+        - splitted[-1] = "#{splitted[-1]}(2i)"
+        - val = getVal(splitted)
+        - options = [1..12]
+        - options.unshift("")
+        - for mm in options
+          %option{ value: mm }= mm
+
+      .slash /
+
+      %select{ class: 'day', data: { 'field-name': "#{@field}(3i)" } }
+        - splitted[-1] = "#{splitted[-1]}(3i)"
+        - val = getVal(splitted)
+        - options = [1..31]
+        - options.unshift("")
+        - for dd in options
+          %option{ value: dd }= dd
+
+      .slash /
+
+      %select{ class: 'year', data: { 'field-name': "#{@field}(1i)" } }
+        - splitted[-1] = "#{splitted[-1]}(1i)"
+        - val = getVal(splitted)
+        - options = [1900..2000].reverse()
+        - options.unshift("")
+        - for yy in options
+          %option{ value: yy }= yy
 
   - else
     -### Regular text input

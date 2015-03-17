@@ -58,6 +58,25 @@
     width: 100%;
     margin-bottom: 35px;
   }
+  .date-fields {
+    select {
+      float: left;
+    }
+    .day, .month {
+      width: 25%;
+    }
+    .year {
+      width: 30%
+    }
+    .slash {
+      width: 8%;
+      float: left;
+      font-size: 25px;
+      font-weight: 200;
+      text-align: center;
+      padding-top: 5px;
+    }
+  }
   [data-reveal-field] {
     display: none;
   }
