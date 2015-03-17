@@ -52,7 +52,6 @@
       - for value_and_display in @options
         - value = value_and_display[0]
         .radio-option
-          / add thing to do if val same val then selected
           %input{ type: "radio", name: id, id: "#{id}_#{value}", value: value, data: {'field-name': @field}, checked: same(value, val) }
           %label{ for: "#{id}_#{value}" }= value_and_display[1]
         -if value_and_display.length > 2 and value_and_display[2].length

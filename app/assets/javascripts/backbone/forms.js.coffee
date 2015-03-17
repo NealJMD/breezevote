@@ -60,6 +60,13 @@ class window.BallotRequest extends Backbone.DeepModel
   isNew: () ->
     return !@get('id')?
 
+  initialize: () ->
+    # some values exist only in the client side. we reconstruct them here
+    switch @get('registered_address.state')
+      when 'NC'
+        @set('identification', 'ssn_four') if @get('ssn_four')?
+        @set('identification', 'license_number') if @get('license_number')?
+
   save: () ->
     @validate()
     if @isValid()
