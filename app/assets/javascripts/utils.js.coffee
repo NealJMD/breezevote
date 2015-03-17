@@ -1,4 +1,5 @@
-window.BVUtils = 
+window.brzvt ||= {}
+window.brzvt.utils = 
 
   flatten_params: (params, top_level=true) ->
     output = {}

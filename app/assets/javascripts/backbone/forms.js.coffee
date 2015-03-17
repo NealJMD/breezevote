@@ -75,10 +75,10 @@ class window.BallotRequest extends Backbone.DeepModel
       params[type] = @toJSON()
       if @isNew()
         console.log("is new, calling to",'/'+type+'s')
-        BVUtils.post('/'+type+'s', params)
+        brzvt.utils.post('/'+type+'s', params)
       else
         console.log("is old, calling to",'/'+type+'s/'+@get('id'))
-        BVUtils.post('/'+type+'s/'+@get('id'), params, 'put')
+        brzvt.utils.post('/'+type+'s/'+@get('id'), params, 'put')
     else
       console.log("validation failed")
 
@@ -130,6 +130,6 @@ class window.BallotRequestView extends Backbone.View
     JST["forms/ballot_request"](attributes)
 
 $ ->
-  init = window.BVDoc || {}
+  init = brzvt.doc || {}
   request_model = new BallotRequest(init)
   request_view = new BallotRequestView(model: request_model)

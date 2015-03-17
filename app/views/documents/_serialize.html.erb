@@ -1,14 +1,18 @@
 <% if doc.present? -%>
   <script type="text/javascript">
-    window.BVDoc = <%= doc.to_json.html_safe %>;
+    window.brzvt = window.brzvt || {}
+    window.brzvt.doc =  <%= doc.to_json.html_safe %>;
     <% if doc.registered_address.present? -%>
-      BVDoc.registered_address = <%= doc.registered_address.to_json.html_safe %>;
+      brzvt.doc.registered_address = <%= doc.registered_address.to_json.html_safe %>;
     <% end -%>
     <% if doc.current_address.present? -%>
-      BVDoc.current_address = <%= doc.current_address.to_json.html_safe %>;
+      brzvt.doc.current_address = <%= doc.current_address.to_json.html_safe %>;
     <% end -%>
     <% if doc.name.present? -%>
-      BVDoc.name = <%= doc.name.to_json.html_safe %>;
+      brzvt.doc.name = <%= doc.name.to_json.html_safe %>;
+    <% end -%>
+    <% if doc.errors.present? -%>
+      window.brzvt.errors = <%= doc.errors.to_json.html_safe %>;
     <% end -%>
   </script>
 <% end %>
