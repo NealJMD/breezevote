@@ -4,8 +4,8 @@
 - ["ssn_four", "Last 4 digits of SSN", " ", "ssn_four"],
 - ["document", "I will attach a copy of a utility bill, bank statement, government check, paycheck, or other government document when I mail the signed form."]]
 
-- moved_options = [["1", "Yes", "When did you move?", "date_moved", "date"],
--                 ["0", "No"]]
+- moved_options = [["true", "Yes", "When did you move?", "date_moved", "date"],
+-                 ["false", "No"]]
 
 .nc-fields{ 'data-reveal-field': 'registered_address.state', 'data-reveal-value': 'NC' }
 

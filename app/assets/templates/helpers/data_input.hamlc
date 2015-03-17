@@ -11,15 +11,25 @@
 -#   id: (optional) the id of the input
 -#   label: (optional) the text to display on the label
 -#   span_width: (optional) the number of grid columns to span. defaults to 4
+-#   disabled: (optional) whether the field should be disabled
 -# 
 -### # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-- getVal = (fields) =>
+- getVal = (fields, index=-1) =>
   - val = @ctx
-  - for part in fields
+  - for part, ii in fields
     - val = val[part]
+    -# this is to correctly render data from rails server, which puts
+    -# date as YYYY-MM-DD, and we have as separate fields
+    - if index >= 0 and ii is fields.length - 1 and val?
+      - val = val.split('-')[index]
   - return val
+
+- same = (a, b) ->
+  - if typeof(a) is "number" or typeof(b) is "number"
+    - return Number(a) is Number(b)
+  - return String(a) is String(b)
 
 - default_type = "string"
 - type = @type || default_type
@@ -29,7 +39,7 @@
 - id = @id || splitted.join("_")
 - label = @label || splitted.reverse()[0].split("_").join(" ")
 - spans = @span_width || 4
-
+- disabled = @disabled || false
 
 .field{ class: "span-#{spans}"}
 
@@ -40,12 +50,13 @@
         %legend= @label
 
       - for value_and_display in @options
+        - value = value_and_display[0]
         .radio-option
-          / add thing to do if val matches val then selected
-          %input{ type: "radio", name: id, id: "#{id}_#{value_and_display[0]}", value: value_and_display[0], data: {'field-name': @field} }
-          %label{ for: "#{id}_#{value_and_display[0]}" }= value_and_display[1]
+          / add thing to do if val same val then selected
+          %input{ type: "radio", name: id, id: "#{id}_#{value}", value: value, data: {'field-name': @field}, checked: same(value, val) }
+          %label{ for: "#{id}_#{value}" }= value_and_display[1]
         -if value_and_display.length > 2 and value_and_display[2].length
-          .subfield{ 'data-reveal-field': @field, 'data-reveal-value': value_and_display[0] }
+          .subfield{ 'data-reveal-field': @field, 'data-reveal-value': value }
             - subfield = if value_and_display.length > 3 then value_and_display[3] else @revealed_field
             - subtype = if value_and_display.length > 4 then value_and_display[4] else default_type
             != JST['helpers/data_input'](field: subfield, label: value_and_display[2], ctx: @ctx, span_width: 12, type: subtype)
@@ -57,11 +68,7 @@
     %select{ id: id, data: { 'field-name': @field } }
       - for value_and_display in @options
         - value = value_and_display[0]
-        - display = value_and_display[1]
-        - if value == val
-          %option{ value: value, selected: true }= display
-        - else
-          %option{ value: value }= display
+        %option{ value: value, selected: same(value, val) }= value_and_display[1]
 
   - else if type is "date"
 
@@ -69,39 +76,34 @@
 
     .date-fields
       %select{ class: 'month', data: { 'field-name': "#{@field}(2i)" } }
-        - splitted[-1] = "#{splitted[-1]}(2i)"
-        - val = getVal(splitted)
+        - val = getVal(splitted, 1)
         - options = [1..12]
         - options.unshift("")
         - for mm in options
-          %option{ value: mm }= mm
+          %option{ value: mm, selected: same(mm, val) }= mm
 
       .slash /
 
       %select{ class: 'day', data: { 'field-name': "#{@field}(3i)" } }
-        - splitted[-1] = "#{splitted[-1]}(3i)"
-        - val = getVal(splitted)
+        - val = getVal(splitted, 2)
         - options = [1..31]
         - options.unshift("")
         - for dd in options
-          %option{ value: dd }= dd
+          %option{ value: dd, selected: same(dd, val) }= dd
 
       .slash /
 
       %select{ class: 'year', data: { 'field-name': "#{@field}(1i)" } }
-        - splitted[-1] = "#{splitted[-1]}(1i)"
-        - val = getVal(splitted)
+        - val = getVal(splitted, 0)
         - options = [1900..2000].reverse()
         - options.unshift("")
         - for yy in options
-          %option{ value: yy }= yy
+          %option{ value: yy, selected: same(yy, val) }= yy
 
   - else
     -### Regular text input
 
     %label{ for: id }= label
 
-    - if @disabled
-      %input{ value: val, id: id, disabled: true, data: { 'field-name': @field } }
-    - else
-      %input{ value: val, id: id, data: { 'field-name': @field } }
+    %input{ value: val, id: id, disabled: disabled, data: { 'field-name': @field } }
+    

@@ -100,6 +100,7 @@ class window.BallotRequestView extends Backbone.View
     @listenTo(@model, "change", @update)
     Backbone.Validation.bind this
     @render()
+    @update()
 
   update: () ->
     conditions = _.map @$("[data-reveal-field]"), (f) ->
