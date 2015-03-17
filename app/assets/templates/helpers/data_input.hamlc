@@ -5,6 +5,7 @@
 -#   field: string naming the field on the Backbone model. 
 -#        "name.first_name" will nest
 -#   ctx: the attributes of the Backbone model
+-#   type: (optional) one of ["string", "radio", "select"]. defaults to string
 -#   options: (optional) if given, makes a select box with these as choices
 -#         should be given as a list of [value, display_text] pairs
 -#   id: (optional) the id of the input
@@ -21,14 +22,31 @@
 - id = @id || splitted.join("_")
 - label = @label || splitted.reverse()[0].split("_").join(" ")
 - spans = @span_width || 4
+- type = @type || "string"
 
 
 .field{ class: "span-#{spans}"}
 
-  %label{ for: id }= label
+  - if type is "radio"
 
-  - if @options?
-    -### Dropdown select menu
+    %fieldset.radio
+      - if @label?
+        %legend= @label
+
+      - for value_and_display in @options
+        .radio-option
+          / add thing to do if val matches val then selected
+          %input{ type: "radio", name: id, id: "#{id}_#{value_and_display[0]}", value: value_and_display[0], data: {'field-name': @field} }
+          %label{ for: "#{id}_#{value_and_display[0]}" }= value_and_display[1]
+        -if value_and_display.length > 2 and value_and_display[2].length
+          .subfield{ 'data-reveal-field': @field, 'data-reveal-value': value_and_display[0] }
+            - subfield = if value_and_display.length > 3 then value_and_display[3] else @revealed_field
+            != JST['helpers/data_input'](field: subfield, label: value_and_display[2], ctx: @ctx, span_width: 12)
+
+  - else if type is "select"
+
+    %label{ for: id }= label
+
     %select{ id: id, data: { 'field-name': @field } }
       - for value_and_display in @options
         - value = value_and_display[0]
@@ -37,8 +55,12 @@
           %option{ value: value, selected: true }= display
         - else
           %option{ value: value }= display
+
   - else
     -### Regular text input
+
+    %label{ for: id }= label
+
     - if @disabled
       %input{ value: val, id: id, disabled: true, data: { 'field-name': @field } }
     - else

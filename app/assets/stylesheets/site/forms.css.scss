@@ -31,6 +31,12 @@
       margin-top: 5px;
     }
   }
+  fieldset.radio{
+    margin-top: 15px;
+    legend {
+      margin-bottom: 15px;
+    }
+  }
   .subfield {
     display: block;
     float: left;
@@ -42,6 +48,10 @@
   }
   select {
     height: 38px;
+  }
+  .helper-text {
+    line-height: 22px;
+    font-size: 14px;
   }
   .section {
     float: left;

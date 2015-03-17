@@ -21,7 +21,10 @@
   - ["7A", "Requesting a ballot for presidential and vice-presidential electors only (Ballots for other offices/issues will not be sent)", "New state of residence and date moved from Virginia. Only eligible if you moved less than 30 days before the presidential election."],
   - ["8A", "Authorized representative of candidate or party serving inside the polling place", ""]]
 
+  %h3 Information for Virginia
 
-  != JST['helpers/radio_input'](field: "reason_code", options: reason_code_options, ctx: @ctx, revealed_field: "reason_support")
-  != data_input(field: "ssn_four", ctx: @ctx)
+  .helper-text
+    To be eligible for an absentee ballot, Virginia voters must provide an accepted reason. Select the one that best describes you. Please note that some of the reasons require additional supporting information.
+  != JST['helpers/data_input'](field: "reason_code", options: reason_code_options, ctx: @ctx, revealed_field: "reason_support", type: "radio", span_width: 12)
+  != data_input(field: "ssn_four", ctx: @ctx, label: "Last 4 digits of SSN")
   

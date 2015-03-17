@@ -1,5 +1,19 @@
 - data_input = JST['helpers/data_input']
 
+- identification_options = [["license_number", "NC Driver's License or ID Number", " ", "license_number"],
+- ["ssn_four", "Last 4 digits of SSN", " ", "ssn_four"],
+- ["document", "I will attach a copy of a utility bill, bank statement, government check, paycheck, or other government document when I mail the signed form."]]
+
+- moved_options = [["1", "Yes", "When did you move?", "date_moved"],
+-                 ["0", "No"]]
+
 .nc-fields{ 'data-reveal-field': 'registered_address.state', 'data-reveal-value': 'NC' }
-  != data_input(field: "ssn_four", ctx: @ctx)
-  != data_input(field: "license_number", ctx: @ctx)
+
+  %h3 Information for North Carolina
+
+  .helper-text
+    North Carolina absentee ballots require you to provide proof of identification. Please enter the one of your choice.
+
+  != data_input(field: "identification", options: identification_options, ctx: @ctx, type: "radio", span_width: 12)
+
+  != data_input(field: "moved_recently", ctx: @ctx, type: "radio", span_width: 12, label: "Did you move to the address at which you're registered to vote in the last 30 days?", options: moved_options)

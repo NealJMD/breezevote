@@ -104,9 +104,9 @@ class window.BallotRequestView extends Backbone.View
   update: () ->
     conditions = _.map @$("[data-reveal-field]"), (f) ->
       $f = @$(f)
-      [$f.data('reveal-field'), $f.data('reveal-value'), $f]
+      [$f.data('reveal-field'), String($f.data('reveal-value')), $f]
     for [field, desired, $f] in conditions
-      actual = @model.get(field)
+      actual = String(@model.get(field))
       if actual is desired or (desired is '*' and actual?)
         $f.show()
       else
