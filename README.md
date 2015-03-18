@@ -5,15 +5,16 @@ This Rails application is a website that manages the paperwork for absentee voti
 
 #### Todos ####
 
-- enforce two letter state codes on addresses
-- standardize and enforce country names, have .is_foreign? method
-- switch to single table inheritance for models
+- users and login
+- page to show completed form
+- more complete validations
+- homepage explaining current version
+- /vision explaining future version
+- move concerns to proper inheritance
 - election model
-- front end
-- pdfs
 - s3
 - https
-- user accounts
+- heroku
 
 #### Running tests ####
 
