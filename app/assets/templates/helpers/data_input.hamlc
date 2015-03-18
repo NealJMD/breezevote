@@ -45,7 +45,7 @@
 
   - if type is "radio"
 
-    %fieldset.radio
+    %fieldset.radio{ id: id }
       - if @label?
         %legend= @label
 
@@ -73,7 +73,7 @@
 
     %label{ for: id }= "#{label} (MM/DD/YYYY)"
 
-    .date-fields
+    .date-fields{ id: id }
       %select{ class: 'month', data: { 'field-name': "#{@field}(2i)" } }
         - val = getVal(splitted, 1)
         - options = [1..12]

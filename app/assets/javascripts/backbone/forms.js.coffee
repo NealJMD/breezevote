@@ -1,18 +1,4 @@
 
-_.extend Backbone.Validation.callbacks, 
-  valid: (view, attr, selector) ->
-    selector = '#'+attr.split(".").join("_")
-    $parent = view.$(selector).parents('.field')
-    $parent.removeClass('error')
-    $parent.find(".inline-error").remove()
-    console.log(attr, selector)
-  invalid: (view, attr, error, field) ->
-    selector = '#'+attr.split(".").join("_")
-    $parent = view.$(selector).parents('.field')
-    $parent.addClass('error')
-    $parent.prepend("<label class='inline-error'>#{error}</label>")
-    console.log(attr, error, selector)
-
 class window.BallotRequest extends Backbone.DeepModel
   defaults:
     current_address: {country: "USA"}
@@ -108,6 +94,14 @@ class window.BallotRequestView extends Backbone.View
     Backbone.Validation.bind this
     @render()
     @update()
+    @render_server_errors()
+
+  render_server_errors: ->
+    return unless brzvt.errors?
+    for field, errors of brzvt.errors
+      error = brzvt.utils.sentence_case(field) + ' ' + errors[0]
+      console.log(field, error)
+      brzvt.utils.invalid(this, field, error)
 
   update: () ->
     conditions = _.map @$("[data-reveal-field]"), (f) ->

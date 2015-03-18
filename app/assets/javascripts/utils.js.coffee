@@ -1,6 +1,27 @@
 window.brzvt ||= {}
 window.brzvt.utils = 
 
+  valid: (view, attr, field) ->
+    selector = '[id='+attr.split(".").join("_")+']'
+    $parent = view.$(selector).parents('.field')
+    $parent.removeClass('error')
+    $parent.find(".inline-error").remove()
+    console.log(attr, selector)
+
+  invalid: (view, attr, error, field) ->
+    selector = '[id='+attr.split(".").join("_")+']'
+    $parent = view.$(selector).parents('.field')
+    $parent.addClass('error')
+    $parent.prepend("<label class='inline-error'>#{error}</label>")
+    console.log(attr, error, field)
+
+  sentence_case: (attrName) ->
+    splitted = attrName.split('.');
+    query = splitted[splitted.length-1];
+    return query.replace(/(?:^\w|[A-Z]|\b\w)/g, (match, index) ->
+      return if index is 0 then match.toUpperCase() else ' ' + match.toLowerCase();
+    ).replace(/_/g, ' ');
+
   flatten_params: (params, top_level=true) ->
     output = {}
     for own key, value of params
@@ -28,3 +49,7 @@ window.brzvt.utils =
 
     document.body.appendChild(form)
     form.submit()
+
+_.extend Backbone.Validation.callbacks, 
+  valid: brzvt.utils.valid
+  invalid: brzvt.utils.invalid
