@@ -5,7 +5,11 @@ This Rails application is a website that manages the paperwork for absentee voti
 
 #### Todos ####
 
-- users and login
+- add flash messages to layout
+  ```
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  ```
 - page to show completed form
 - more complete validations
 - homepage explaining current version
