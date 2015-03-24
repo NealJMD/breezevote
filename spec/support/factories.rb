@@ -38,6 +38,11 @@ FactoryGirl.define do
     current_address
   end
 
+  factory :user do
+    email Faker::Internet.email
+    password Faker::Internet.password(8, 12)
+  end
+
 end
 
 

@@ -2,50 +2,174 @@ describe DocumentsController, :type => :request do
 
   let(:class_sym) { [:va_ballot_request, :nc_ballot_request].sample }
   let(:model) { class_sym.to_s.camelcase.constantize }
-  let(:params) { params_for(model, class_sym) }
   let(:class_name) { class_sym.to_s }
   let(:base_path) { "/#{class_name.pluralize}" }
+
+  let(:params) { params_for(model, class_sym) }
   let(:bad_params) { params_for(model, class_sym) }
+
+  let(:user_params) { attributes_for :user }
+  let(:bad_user_params) { attributes_for :user }
+
 
   before :each do
     bad_params[:name_attributes][:first_name] = "    "
+    bad_user_params[:password] = "adsf"
   end
 
   describe :create do
 
     describe :html do
 
-      describe :success do
-        it "should save" do
-          expect{ post base_path, class_sym => params }.to change{ model.count }.by 1
-          expect(model.last.name.first_name).to eq params[:name_attributes][:first_name]
-          expect(response).to redirect_to(model.last)
+      describe :not_logged_in do
+
+        describe :new_user do
+
+          describe :good_params do
+            it "should create a user" do
+              expect{ post base_path, { class_sym => params, user: user_params } }.to change{ User.count }.by 1
+            end
+            it "should save" do
+              expect{ post base_path, { class_sym => params, user: user_params } }.to change{ model.count }.by 1
+              expect(model.last.name.first_name).to eq params[:name_attributes][:first_name]
+              expect(response).to redirect_to(model.last)
+            end
+            it "should save two addresses" do
+              expect{ post base_path, { class_sym => params, user: user_params } }.to change{ Address.count }.by 2
+            end
+            it "should save one name" do
+              expect{ post base_path, { class_sym => params, user: user_params } }.to change{ Name.count }.by 1
+            end
+          end
+
+          describe :bad_params do
+            it "should create a user" do
+              expect{ post base_path, { class_sym => bad_params, user: user_params } }.to change{ User.count }.by 1
+            end
+            it "should not save" do
+              expect{ post base_path, { class_sym => bad_params, user: user_params } }.to change{ model.count }.by 0
+              expect(model.last.name.first_name).not_to eq params[:name_attributes][:first_name]
+              expect(response).to be_success
+              expect(response).to render_template :new
+            end
+            it "should save zero addresses" do
+              expect{ post base_path, { class_sym => bad_params, user: user_params } }.to change{ Address.count }.by 0
+            end
+            it "should save zero names" do
+              expect{ post base_path, { class_sym => bad_params, user: user_params } }.to change{ Name.count }.by 0
+            end
+          end
+
+          describe :bad_user_params do
+            it "should not create a user" do
+              expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ User.count }.by 0
+            end
+            it "should not save" do
+              expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ model.count }.by 0
+              expect(model.last.name.first_name).not_to eq params[:name_attributes][:first_name]
+              expect(response).to be_success
+              expect(response).to render_template :new
+            end
+            it "should save zero addresses" do
+              expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ Address.count }.by 0
+            end
+            it "should save zero names" do
+              expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ Name.count }.by 0
+            end
+          end
+
+          describe :revised_params do
+
+            before :each do
+              expect{ post base_path, { class_sym => bad_params, user: user_params } }.to change{ User.count }.by 1
+            end
+
+            it "should not create a user" do
+              expect{ post base_path, class_sym => params }.to change{ User.count }.by 0
+            end
+            it "should save" do
+              expect{ post base_path, class_sym => params }.to change{ model.count }.by 1
+              expect(model.last.name.first_name).to eq params[:name_attributes][:first_name]
+              expect(response).to redirect_to(model.last)
+            end
+            it "should save two addresses" do
+              expect{ post base_path, class_sym => params }.to change{ Address.count }.by 2
+            end
+            it "should save one name" do
+              expect{ post base_path, class_sym => params }.to change{ Name.count }.by 1
+            end
+          end
         end
 
-        it "should save two addresses" do
-          expect{ post base_path, class_sym => params }.to change{ Address.count }.by 2
+        describe :existing_user do
+
+          before :each do
+            @user = User.new(user_params)
+            @user.save!
+          end
+
+          describe :correct_login do
+            it "should not create a user" do
+              expect{ post base_path, { class_sym => params, user: user_params } }.to change{ User.count }.by 0
+            end
+            it "should save" do
+              expect{ post base_path, { class_sym => params, user: user_params } }.to change{ model.count }.by 1
+              expect(model.last.name.first_name).to eq params[:name_attributes][:first_name]
+              expect(response).to redirect_to(model.last)
+            end
+            it "should save two addresses" do
+              expect{ post base_path, { class_sym => params, user: user_params } }.to change{ Address.count }.by 2
+            end
+            it "should save one name" do
+              expect{ post base_path, { class_sym => params, user: user_params } }.to change{ Name.count }.by 1
+            end
+          end
+
+          describe :incorrect_login do
+
+            before :each do
+              bad_login_params = user_params
+              bad_login_params[:password] = "qwerqwer123!"
+            end
+            it "should not create a user" do
+              expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ User.count }.by 0
+            end
+            it "should not save" do
+              expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ model.count }.by 0
+              expect(model.last.name.first_name).not_to eq params[:name_attributes][:first_name]
+              expect(response).to be_success
+              expect(response).to render_template :new
+            end
+            it "should save zero addresses" do
+              expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ Address.count }.by 0
+            end
+            it "should save zero names" do
+              expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ Name.count }.by 0
+            end
+          end
         end
 
-        it "should save one name" do
-          expect{ post base_path, class_sym => params }.to change{ Name.count }.by 1
-        end
-      end
+        describe :no_user_params do
 
-      describe :rejection do
+          it "should not create a user" do
+            expect{ post base_path, class_sym => params }.to change{ User.count }.by 0
+          end
 
-        it "should not save" do
-          expect{ post base_path, class_sym => bad_params }.to change{ model.count }.by 0
-          expect(response).to be_success
-          expect(response).to render_template :new
+          it "should not save" do
+            expect{ post base_path, class_sym => params }.to change{ model.count }.by 0
+            expect(response).to be_success
+            expect(response).to render_template :new
+          end
+
+          it "should save zero addresses" do
+            expect{ post base_path, class_sym => params }.to change{ Address.count }.by 0
+          end
+
+          it "should save zero names" do
+            expect{ post base_path, class_sym => params }.to change{ Name.count }.by 0
+          end
         end
 
-        it "should save zero addresses" do
-          expect{ post base_path, class_sym => bad_params }.to change{ Address.count }.by 0
-        end
-
-        it "should save zero names" do
-          expect{ post base_path, class_sym => bad_params }.to change{ Name.count }.by 0
-        end
       end
     end
 

@@ -20,26 +20,24 @@ class DocumentsController < ApplicationController
   def create
     @document = model.new(strong_params)
 
-    respond_to do |format|
-      if @document.save
-        format.html { redirect_to @document, notice: '#{title} was successfully created.' }
-        format.json { render json: { redirect: path(:show, @document.id) }, status: 201 }
-      else
-        format.html { render :new }
-        format.json { render json: { errors: @document.errors }, status: 422 }
-      end
+    errors = authenticate_or_errors
+    if errors.present?
+      merge_errors(@document, errors)
+      return render :new
+    end
+
+    if @document.save
+      redirect_to @document, notice: '#{title} was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @document.update(strong_params)
-        format.html { redirect_to @document, notice: '#{title} was successfully updated.' }
-        format.json { render json: { redirect: path(:show, @document.id) }, status: 203 }
-      else
-        format.html { render :edit }
-        format.json { render json: { errors: @document.errors }, status: 422 }
-      end
+    if @document.update(strong_params)
+      redirect_to @document, notice: '#{title} was successfully updated.'
+    else
+      render :edit
     end
   end
 
