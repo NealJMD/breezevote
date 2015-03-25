@@ -1,6 +1,9 @@
 class HomeController < ApplicationController
   def index
-    @va_ballot_request = VaBallotRequest.new
+    render layout: "home"
+  end
+
+  def vision
     render layout: "home"
   end
 end
