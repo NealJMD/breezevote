@@ -4,6 +4,7 @@ class window.BallotRequest extends Backbone.DeepModel
     current_address: {country: "USA"}
     registered_address: { state: "", country: "USA" }
     name: {}
+    user: {}
 
   validation:
     'registered_address.street_address':
@@ -53,12 +54,21 @@ class window.BallotRequest extends Backbone.DeepModel
         @set('identification', 'ssn_four') if @get('ssn_four')?
         @set('identification', 'license_number') if @get('license_number')?
 
+  multipart_keys: () ->
+    # some keys should not be nested on submission, but are nested in this model
+    return ['user']
+
   save: () ->
     @validate()
     if @isValid()
       type = @type()
       params = @authenticity_params()
       params[type] = @toJSON()
+      for key in @multipart_keys()
+        existing = params[type][key]
+        if existing?
+          params[key] = existing
+          delete params[type][key]
       if @isNew()
         console.log("is new, calling to",'/'+type+'s')
         brzvt.utils.post('/'+type+'s', params)

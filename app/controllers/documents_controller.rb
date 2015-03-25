@@ -22,7 +22,7 @@ class DocumentsController < ApplicationController
 
     errors = authenticate_or_errors
     if errors.present?
-      merge_errors(@document, errors)
+      merge_errors(@document, errors, 'user')
       return render :new
     end
 

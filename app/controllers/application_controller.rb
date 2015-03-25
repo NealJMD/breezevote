@@ -20,11 +20,14 @@ class ApplicationController < ActionController::Base
     return u.errors
   end
 
-  def merge_errors target, errors
+  def merge_errors target, errors, prefix=nil
     target.valid?
+    puts target.errors.to_hash
     errors.each do |attribute, message|
-      target.errors[attribute] << message
+      key = prefix.present? ? "#{prefix}.#{attribute}" : attribute
+      target.errors[key] << message
     end
+    puts target.errors.to_hash
   end
 
 

@@ -16,12 +16,14 @@
     %h3 Current Address
     .helper-text Enter the address where you'd like the ballot to arrive.
     != JST["forms/address"](field: 'current_address', ctx: this)
-
   
   .section{ 'data-reveal-field': 'registered_address.state', 'data-reveal-value': '*' }
     != JST["forms/state_specific/NC"](ctx: this)
     != JST["forms/state_specific/VA"](ctx: this)
-    
+
+  .section
+    %h3 Personal Info
+    != JST["forms/user"](ctx: this)
 
   .section
     .button.submit

@@ -99,10 +99,12 @@
         - for yy in options
           %option{ value: yy, selected: same(yy, val) }= yy
 
+  - else if type is "password"
+    %label{ for: id }= label
+    %input{ value: val, type: "password", id: id, disabled: disabled, data: { 'field-name': @field } }
+
   - else
     -### Regular text input
-
     %label{ for: id }= label
-
     %input{ value: val, id: id, disabled: disabled, data: { 'field-name': @field } }
     
