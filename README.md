@@ -5,20 +5,40 @@ This Rails application is a website that manages the paperwork for absentee voti
 
 #### Todos ####
 
-- add flash messages to layout
-  ```
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  ```
-- page to show completed form
-- more complete validations
-- homepage explaining current version
-- /vision explaining future version
-- move concerns to proper inheritance
-- election model
-- s3
-- https
-- heroku
+- email user
+  - on sign up
+  - with completed form
+- improve backbone form
+  * add helper text
+  * put validation messages somewhere better
+  * add paging
+  * validate on field blur
+- data
+  - add election model
+  * add political parties to users and documents
+  * add delivery status selection
+  * restrict access
+  - move concerns to inheritance
+- government forms
+  - handle political parties
+  - handle elections
+  * handle addresses abroad
+  - add mailing address to second page
+- layout
+  - create user page
+  - create document show page
+  * create devise views
+  * create baseline layout
+  * create logo
+  * create explanatory homepage
+  * create /vision page
+  - add flash messages to layout <%= notice %> <%= alert %>
+- deploy
+  * set up heroku
+  * set up s3 with restricted access
+  - set up Mandrill
+  - set up with domain name
+  - set up breezevote email
 
 #### Running tests ####
 
