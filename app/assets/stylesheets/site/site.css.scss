@@ -1,6 +1,10 @@
 // CSS Reset
 @import "reset";
 
+// Font awesome
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 // Core
 @import "colors";
 @import "typography";

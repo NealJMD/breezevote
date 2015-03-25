@@ -1,15 +1,3 @@
-@mixin full-width-after($maxWidth, $padding: 2%) {
-  @media(max-width: $maxWidth) {
-    width: 100% - 2 * $padding;
-    padding: 0 $padding;
-  }
-}
-@mixin centered-to-full($width, $padding: 2%) {
-  width: $width;
-  margin: 0 auto;
-  @include full-width-after($width, $padding);
-}
-
 // Clearfix
 // --------
 // For clearing floats like a boss h5bp.com/q
@@ -27,12 +15,47 @@
     clear: both;
   }
 }
+@mixin full-width-after($maxWidth, $padding: 2%) {
+  @media(max-width: $maxWidth) {
+    width: 100% - 2 * $padding;
+    padding: 0 $padding;
+  }
+}
+@mixin centered-to-full($width, $padding: 2%) {
+  width: $width;
+  margin: 0 auto;
+  @include full-width-after($width, $padding);
+}
+
+
+
+body {
+  background-color: $light_blue;
+}
 .main {
   background-color: $light_blue;
+  padding-top: 50px;
   @include clearfix();
   .content {
     @include clearfix();
     @include centered-to-full(800px);
     padding: 40px 0;
   }
+}
+.logo {
+  font-family: $sansff;
+  color: white;
+}
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: white;
+  background: $transparent_black;
+  .logo, .more {
+    padding: 10px 15px;
+    font-size: 25px;
+  }
+  .logo { float: left; }
+  .more { float: right; }
 }

@@ -13,6 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'font-awesome-sass', '~> 4.3.0'
 
 # the version with rails 4.1 compatibility is not on RubyGems because
 # the maintainer of the project died and new devs dont have access
