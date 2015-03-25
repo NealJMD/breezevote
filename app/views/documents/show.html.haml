@@ -1,1 +1,7 @@
-= render "shared/document", doc: @document, document_name: @type.underscore
+
+- if @document.has_pdf_asset?
+  %p Your form has been filled out and is ready for you to download! You can check it out #{link_to 'here', @document.pdf_url}.
+- else
+  %p Your form is still being processed. Hang tight!
+
+=# render "shared/document", doc: @document, document_name: @type.underscore

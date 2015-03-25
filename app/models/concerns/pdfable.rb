@@ -3,10 +3,16 @@ module Pdfable
 
   included do
     has_one :pdf_asset, as: :pdfable, dependent: :destroy
+    after_create :create_pdf
   end
 
   def has_pdf_asset?
     pdf_asset.present?
+  end
+
+  def pdf_url
+    return '/' unless has_pdf_asset?
+    '/'+pdf_asset.pdf.url
   end
 
   def create_pdf(directive=nil)
