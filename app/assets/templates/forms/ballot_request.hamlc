@@ -1,19 +1,19 @@
 .form
   .section
-    %h3 State
+    %h4 State
     != JST["forms/pick_state"](ctx: this)
 
   .section
-    %h3 Name
+    %h4 Name
     != JST["forms/name"](ctx: this)
 
   .section
-    %h3 Registered Address
+    %h4 Registered Address
     .helper-text Enter the address where you're registered to vote.
     != JST["forms/address"](field: 'registered_address', ctx: this)
 
   .section
-    %h3 Current Address
+    %h4 Current Address
     .helper-text Enter the address where you'd like the ballot to arrive.
     != JST["forms/address"](field: 'current_address', ctx: this)
   
@@ -22,7 +22,7 @@
     != JST["forms/state_specific/VA"](ctx: this)
 
   .section
-    %h3 Personal Info
+    %h4 Personal Info
     != JST["forms/user"](ctx: this)
 
   .section

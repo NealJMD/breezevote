@@ -9,7 +9,7 @@
 
 .nc-fields{ 'data-reveal-field': 'registered_address.state', 'data-reveal-value': 'NC' }
 
-  %h3 Information for North Carolina
+  %h4 Information for North Carolina
 
   .helper-text
     North Carolina absentee ballots require you to provide proof of identification. Please enter the one of your choice.

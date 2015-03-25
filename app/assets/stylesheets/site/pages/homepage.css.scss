@@ -28,7 +28,26 @@
       }
     }
     &.explanation {
-      display: none;
+      padding: 150px 0;
+      background-color: $dark_blue;
+      color: white;
+      .one-third {
+        margin-top: 40px;
+        .icon {
+          text-align: center;
+          font-size: 90px;
+          padding: 40px 0;
+        }
+        h3 {
+          margin-bottom: 30px;
+        }
+        p {
+          font-size: 18px;
+          line-height: 24px;
+          font-weight: 200;
+
+        }
+      }
     }
     &.get-started {
       background-color: $light_blue;
