@@ -1,0 +1,4 @@
+- data_input = JST['helpers/data_input']
+
+!= data_input(field: "user.email", ctx: @ctx, span_width: 6)
+!= data_input(field: "user.password", ctx: @ctx, span_width: 6, type: 'password')
