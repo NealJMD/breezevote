@@ -86,6 +86,8 @@ class window.BallotRequestView extends Backbone.View
 
   events:
     "click .submit": "submit"
+    "click .next-page": "next_page"
+    "click .prev-page": "prev_page"
     "change input,select,textarea" : "changed"
     "cut input,select,textarea" : "changed"
     "paste input,select,textarea" : "changed"
@@ -105,6 +107,34 @@ class window.BallotRequestView extends Backbone.View
     @render()
     @update()
     @render_server_errors()
+    @show_page(@first_page())
+
+  prev_page: (evt) ->
+    @change_page(evt, -1)
+
+  next_page: (evt) ->
+    @change_page(evt, +1)
+
+  change_page: (evt, delta) ->
+    $clicked = $(evt.currentTarget)
+    page_number = $clicked.parents('.page').data('page-number')
+    @show_page(page_number+delta)
+
+  first_page: ->
+    if brzvt.errors? then '*' else 1
+
+  show_page: (page_number) ->
+    for page in $('.page')
+      if page_number is '*' or $(page).data('page-number') is +page_number
+        $(page).show()
+      else
+        $(page).hide()
+    @scrollTo('#form-top')
+    $('.next-page').hide() if page_number is '*'
+    $('.prev-page').hide() if page_number is '*'
+
+  scrollTo: (target) ->
+    $('html, body').animate({scrollTop: $(target).offset().top-120}, 400)
 
   render_server_errors: ->
     return unless brzvt.errors?
@@ -116,10 +146,10 @@ class window.BallotRequestView extends Backbone.View
   update: () ->
     conditions = _.map @$("[data-reveal-field]"), (f) ->
       $f = @$(f)
-      [$f.data('reveal-field'), String($f.data('reveal-value')), $f]
+      [$f.data('reveal-field'), $f.data('reveal-value'), $f]
     for [field, desired, $f] in conditions
-      actual = String(@model.get(field))
-      if actual is desired or (desired is '*' and actual?)
+      actual = @model.get(field)
+      if String(actual) is String(desired) or (desired is '*' and actual? and actual.length)
         $f.show()
       else
         $f.hide()

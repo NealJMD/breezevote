@@ -11,8 +11,7 @@ This Rails application is a website that manages the paperwork for absentee voti
 - improve backbone form
   * add helper text
   * put validation messages somewhere better
-  * add paging
-  * validate on field blur
+  * validate on field blur and page turn
 - data
   - add election model
   * add political parties to users and documents

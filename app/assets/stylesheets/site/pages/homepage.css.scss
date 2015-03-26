@@ -51,8 +51,8 @@
     }
     &.get-started {
       background-color: $light_blue;
-      .intro {
-        margin: 20px 0;
+      .homepage-form {
+        margin-top: 20px;
       }
       .content {
         @include centered-to-full(600px);
