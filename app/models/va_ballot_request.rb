@@ -6,4 +6,8 @@ class VaBallotRequest < ActiveRecord::Base
   validates :reason_code, inclusion: {
     in: %w(1A 1B 1C 1D 1E 1F 2A 2B 2C 3A 3B 4A 5A 6A 6B 6C 6D 7A 8A),
     message: "is not a valid reason code" }
+
+  def self.other_params
+    [:ssn_four, :reason_code, :reason_support]
+  end
 end

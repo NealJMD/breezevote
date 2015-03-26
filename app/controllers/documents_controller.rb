@@ -93,11 +93,7 @@ class DocumentsController < ApplicationController
       }
     end
 
-    def other_params
-      [:ssn_four, :reason_code, :reason_support, :license_number, :moved_recently, :date_moved, :birthdate]
-    end
-
     def strong_params
-      params.require(symbol).permit(*other_params, **address_strong_params)
+      params.require(symbol).permit(*model.other_params, **address_strong_params)
     end
 end
