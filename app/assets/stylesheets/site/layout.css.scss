@@ -36,11 +36,11 @@ body {
   background-color: $light_blue;
   padding-top: 50px;
   @include clearfix();
-  .content {
-    @include clearfix();
-    @include centered-to-full(800px);
-    padding: 40px 0;
-  }
+}
+.content {
+  @include clearfix();
+  @include centered-to-full(600px);
+  padding: 90px 0;
 }
 .logo {
   font-family: $sansff;
@@ -51,6 +51,7 @@ body {
   top: 0;
   width: 100%;
   color: white;
+  z-index: 1000000;
   background: $transparent_black;
   .logo, .more {
     padding: 10px 15px;

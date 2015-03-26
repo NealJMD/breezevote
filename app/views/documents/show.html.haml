@@ -1,7 +1,19 @@
+.color-immersion.completion-success.full-screen
+  .content
+    - if @document.delivery_requested? or @document.delivered?
+      %h1.thin You're all set!
+      %p.explanation Your form has been filled out and will arrive at your home shortly. If you'd like to check it out, you can see the completed form #{link_to 'here', @document.pdf_url}.
+    - else
+      %h1.thin Here we go!
+      .explanation
+        We've filled out your form! Here's what else you've got to do -
+        %ol
+          %li Print out the form that you can find #{link_to 'here', @document.pdf_url}. If you print it double-sided, it'll make the next part easier.
+          %li Sign the line! And don't forget the date.
+          %li Fold the printed document in thirds, with the address on the outside and the form on the inside.
+          %li Put a stamp on it, and put it in the mail. Your absentee ballot will arrive shortly!
 
-- if @document.has_pdf_asset?
-  %p Your form has been filled out and is ready for you to download! You can check it out #{link_to 'here', @document.pdf_url}.
-- else
-  %p Your form is still being processed. Hang tight!
+    %p.explanation
+      We would ask you to share, but breezevote is still a demo. #{ @document.delivery_requested? ? "And nothing's actually being mailed for the time being." : ""} Thanks for taking it for a ride, and if you're interested in becoming involved in the project, please #{ link_to 'get in touch', "mailto:#{CONTACT_EMAIL}"}.
 
 =# render "shared/document", doc: @document, document_name: @type.underscore

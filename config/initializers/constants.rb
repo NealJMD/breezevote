@@ -53,3 +53,5 @@ STATE_HASH = {
   'Wyoming' => 'WY'
 }
 STATE_CODES = STATE_HASH.map{|k,v| v}
+
+CONTACT_EMAIL = "nealjmd+brzvtdemo@gmail.com"

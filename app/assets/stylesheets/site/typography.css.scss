@@ -30,3 +30,19 @@ p {
   font-size: 16px;
   line-height: 22px;
 }
+ol {
+  list-style-type: decimal;
+  list-style-position: outside;
+  padding-left: 22px;
+  li {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+}
+a {
+  color: $pink;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
