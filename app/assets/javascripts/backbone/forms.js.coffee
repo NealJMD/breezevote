@@ -152,6 +152,7 @@ class window.BallotRequestView extends Backbone.View
     if brzvt.errors? then '*' else 1
 
   show_page: (page_number) ->
+    return unless $('.page').length
     for page in $('.page')
       if page_number is '*' or $(page).data('page-number') is +page_number
         $(page).show()
