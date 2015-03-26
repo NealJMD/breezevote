@@ -24,6 +24,7 @@ FactoryGirl.define do
     ssn_four "1234"
     reason_code "1A"
     reason_support "Princeton University"
+    status 'delivery_requested'
     name
     registered_address 
     current_address
@@ -33,6 +34,7 @@ FactoryGirl.define do
     ssn_four "1234"
     birthdate 20.years.ago.to_date
     moved_recently false
+    status 'delivery_requested'
     name
     registered_address 
     current_address

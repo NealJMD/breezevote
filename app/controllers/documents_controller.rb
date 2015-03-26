@@ -93,7 +93,11 @@ class DocumentsController < ApplicationController
       }
     end
 
+    def document_params
+      [:status]
+    end
+
     def strong_params
-      params.require(symbol).permit(*model.other_params, **address_strong_params)
+      params.require(symbol).permit(*model.other_params, *document_params, **address_strong_params)
     end
 end

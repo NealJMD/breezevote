@@ -1,6 +1,7 @@
 class VaBallotRequest < ActiveRecord::Base
   include Addressable
   include Pdfable
+  include Deliverable
 
   validates :ssn_four, format: { with: /\A[0-9]{4}\z/, message: "must be a 4 digit number" }
   validates :reason_code, inclusion: {

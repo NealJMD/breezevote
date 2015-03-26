@@ -32,6 +32,7 @@ describe DocumentsController, :type => :request do
             it "should save" do
               expect{ post base_path, { class_sym => params, user: user_params } }.to change{ model.count }.by 1
               expect(model.last.name.first_name).to eq params[:name_attributes][:first_name]
+              expect(model.last.delivery_requested?).to eq true
               expect(response).to redirect_to(model.last)
             end
             it "should save two addresses" do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324203010) do
+ActiveRecord::Schema.define(version: 20150326204558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150324203010) do
     t.date     "date_moved"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",                default: 0,     null: false
   end
 
   create_table "pdf_assets", force: true do |t|
@@ -89,6 +90,7 @@ ActiveRecord::Schema.define(version: 20150324203010) do
     t.string   "reason_support"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",                default: 0, null: false
   end
 
   add_index "va_ballot_requests", ["name_id"], name: "index_va_ballot_requests_on_name_id", using: :btree
