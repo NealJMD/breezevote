@@ -91,15 +91,22 @@ class window.BallotRequestView extends Backbone.View
     "change input,select,textarea" : "changed"
     "cut input,select,textarea" : "changed"
     "paste input,select,textarea" : "changed"
+    "blur input,select,textarea" : "changed"
+    # "change input,select,textarea" : "prevalidate"
 
   changed: (evt) ->
-    $changed = $(evt.currentTarget)
-    value = $changed.val()
-    field = $changed.data('field-name')
+    [field, value] = @field_value_from_target(evt.currentTarget)
+    @prevalidate(field, value)
     @model.set(field, value)
 
   submit: ->
     @model.save()
+
+  field_value_from_target: (target) ->
+    $changed = $(target)
+    value = $changed.val()
+    field = $changed.data('field-name')
+    return [field, value]
 
   initialize: ->
     @listenTo(@model, "change", @update)
@@ -108,6 +115,13 @@ class window.BallotRequestView extends Backbone.View
     @update()
     @render_server_errors()
     @show_page(@first_page())
+
+  prevalidate: (field, value) ->
+    error_message = @model.preValidate(field, value)
+    if error_message
+      brzvt.utils.invalid(this, field, error_message)
+    else
+      brzvt.utils.valid(this, field)
 
   prev_page: (evt) ->
     @change_page(evt, -1)

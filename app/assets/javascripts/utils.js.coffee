@@ -12,7 +12,8 @@ window.brzvt.utils =
     selector = '[id='+attr.split(".").join("_")+']'
     $parent = view.$(selector).parents('.field')
     $parent.addClass('error')
-    $parent.prepend("<label class='inline-error'>#{error}</label>")
+    unless $parent.find('.inline-error').length
+      $parent.prepend("<label class='inline-error'>#{error}</label>")
     console.log(attr, error, field)
 
   sentence_case: (attrName) ->

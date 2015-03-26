@@ -82,13 +82,16 @@
     display: none;
   }
   .field.error {
+    position: relative;
     input, select, .radio-option {
       border-color: $dark_red;
     }
     label.inline-error {
       display: block;
       font-size: 14px;
-      color: $dark_red
+      color: $dark_red;
+      position: absolute;
+      top: 66px;
     }
   }
   .button {
@@ -115,6 +118,7 @@
 
   $full-width: 600px;
   $half-width: 360px;
+  $padding_bottom: 12px;
   $columns: 12;
   $col-width: 100% / $columns;
   @media(min-width: $full-width) {
@@ -123,6 +127,7 @@
         float: left;
         width: $col-width * ($i - 0.5);
         margin-right: $col-width * 0.5;
+        padding-bottom: $padding_bottom;
       }
     }
   }
@@ -132,6 +137,18 @@
         float: left;
         width: 45%;
         margin-right: 5%;
+        padding-bottom: $padding_bottom;
+      }
+    }
+  }
+  @media(max-width: $half-width) {
+    @for $i from 2 through $columns {
+      .span-#{$i} {
+        width: 98%;
+        padding-bottom: $padding_bottom;
+        &.error label.inline-error {
+          top: 50px;
+        }
       }
     }
   }
