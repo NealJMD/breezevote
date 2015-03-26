@@ -52,7 +52,7 @@
   }
   .helper-text {
     line-height: 22px;
-    font-size: 14px;
+    margin-top: 4px;
   }
   .section {
     float: left;
@@ -92,7 +92,7 @@
     }
   }
   .button {
-    background: rgba(30, 30, 30, 0.1);
+    background: $transparent_black;
     color: white;
     cursor: pointer;
     padding: 10px 20px;

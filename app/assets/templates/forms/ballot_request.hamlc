@@ -5,6 +5,7 @@
     
     .section
       %h4 State
+      .helper-text To get started, pick the state you're registered to vote.
       != JST["forms/pick_state"](ctx: this)
 
     .section{ 'data-reveal-field': 'registered_address.state', 'data-reveal-value': '*' }
@@ -37,6 +38,7 @@
   .page{ 'data-page-number': 3 }
     .section
       %h4 Personal Info
+      .helper-text Finally, we need you to create a password (of 8+ characters) to make sure that only you can access the personal data you've entered in this form. If you already have an account, go ahead and enter your existing login credentials.
       != JST["forms/user"](ctx: this)
 
     .section
