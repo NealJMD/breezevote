@@ -91,7 +91,8 @@
       font-size: 14px;
       color: $dark_red;
       position: absolute;
-      top: 66px;
+      bottom: -10px;
+      min-width: 200px;
     }
   }
   .button {

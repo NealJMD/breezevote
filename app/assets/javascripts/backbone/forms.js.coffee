@@ -32,6 +32,11 @@ class window.BallotRequest extends Backbone.DeepModel
       required: true
     'name.last_name':
       required: true
+    'user.email':
+      required: true,
+      pattern: 'email'
+    'user.password':
+      minLength: 8
 
   type: () ->
     state = @get('registered_address').state.toLowerCase()
@@ -122,6 +127,15 @@ class window.BallotRequestView extends Backbone.View
       brzvt.utils.invalid(this, field, error_message)
     else
       brzvt.utils.valid(this, field)
+    return not error_message
+
+  validate_page: (page_number) ->
+    inputs = $("[data-page-number='#{page_number}'].page").find('input[data-field-name]')
+    error_free = true
+    for input in inputs
+      [field, value] = @field_value_from_target(input)
+      error_free = false unless @prevalidate(field, value)
+    return error_free
 
   prev_page: (evt) ->
     @change_page(evt, -1)
@@ -132,7 +146,7 @@ class window.BallotRequestView extends Backbone.View
   change_page: (evt, delta) ->
     $clicked = $(evt.currentTarget)
     page_number = $clicked.parents('.page').data('page-number')
-    @show_page(page_number+delta)
+    @show_page(page_number+delta) if @validate_page(page_number)
 
   first_page: ->
     if brzvt.errors? then '*' else 1
