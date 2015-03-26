@@ -9,15 +9,13 @@ This Rails application is a website that manages the paperwork for absentee voti
   - on sign up
   - with completed form
 - improve backbone form
-  * add helper text
-  * put validation messages somewhere better
-  * validate on field blur and page turn
+  - add more helper text
 - data
   - add election model
   * add political parties to users and documents
-  * add delivery status selection
   * restrict access
   - move concerns to inheritance
+  - set up DelayedJob to handle PDF creation
 - government forms
   - handle political parties
   - handle elections
@@ -25,11 +23,8 @@ This Rails application is a website that manages the paperwork for absentee voti
   - add mailing address to second page
 - layout
   - create user page
-  - create document show page
   * create devise views
-  * create baseline layout
-  * create logo
-  * create explanatory homepage
+  - create logo
   * create /vision page
   - add flash messages to layout <%= notice %> <%= alert %>
 - deploy
