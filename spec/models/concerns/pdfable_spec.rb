@@ -67,21 +67,24 @@ describe Pdfable do
 
     describe :with_existing do
 
-      before :all do
-        @doc.reload
-        @id = @doc.pdf_asset.id
-        @fullpath = "#{Rails.root}/#{@doc.pdf_asset.pdf.path}"
-        @atime = File.atime(@fullpath)
-      end
-
       describe :default do
 
+        before :all do
+          @doc.reload
+          @count = PdfAsset.count
+          @id = @doc.pdf_asset.id
+          @fullpath = "#{Rails.root}/#{@doc.pdf_asset.pdf.path}"
+          @atime = File.atime(@fullpath)
+          @ret = @doc.create_pdf
+          @doc.reload
+        end
+
         it "should return false" do
-          expect( @doc.create_pdf ).to eq false
+          expect( @ret ).to eq false
         end
 
         it "should not change the pdf count" do
-          expect{ @doc.create_pdf }.to change{ PdfAsset.count}.by 0
+          expect( PdfAsset.count ).to eq @count
         end
 
         it "should not touch the existing pdf_asset" do
@@ -97,9 +100,17 @@ describe Pdfable do
       describe :with_overwrite do
 
         before :all do
-          @count = PdfAsset.count
-          @doc.create_pdf(:overwrite)
           @doc.reload
+          @count = PdfAsset.count
+          @id = @doc.pdf_asset.id
+          @fullpath = "#{Rails.root}/#{@doc.pdf_asset.pdf.path}"
+          @atime = File.atime(@fullpath)
+          @ret = @doc.create_pdf(:overwrite)
+          @doc.reload
+        end
+
+        it "should return true" do
+          expect(@ret).to eq true
         end
 
         it "should not change the pdf count" do
@@ -107,7 +118,7 @@ describe Pdfable do
         end
 
         it "should have a file at the filepath" do
-          expect(File).to exist("#{Rails.root}/#{@doc.pdf_asset.pdf.path}")
+          expect(File).to exist(@fullpath)
         end
 
         it "should overwrite the existing pdf_asset" do

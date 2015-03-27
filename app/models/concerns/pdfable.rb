@@ -3,7 +3,7 @@ module Pdfable
 
   included do
     has_one :pdf_asset, as: :pdfable, dependent: :destroy
-    after_create :create_pdf
+    after_create :create_pdf, :unless => "Rails.env.test?" # slows tests wayy down
   end
 
   def has_pdf_asset?
@@ -71,6 +71,7 @@ module Pdfable
     pdf_asset.save!
 
     tempfile.unlink
+    return true
   end
 
 end

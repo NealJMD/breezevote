@@ -1,14 +1,21 @@
 describe Deliverable do
 
   before :each do
-    acceptable = [:nc_ballot_request, :va_ballot_request]
-    @doc = create acceptable.sample
+    @acceptable = [:nc_ballot_request, :va_ballot_request]
+    @doc = create @acceptable.sample
   end
 
   describe :status do
 
     it 'should default to unknown status' do
-      expect(@doc.unknown?).to eq true
+      type = @acceptable.sample
+      model = type.to_s.camelcase.constantize
+      params = params_for model, type
+      params.delete(:status)
+      doc = model.create(params)
+      doc.save
+      doc.reload
+      expect(doc.status).to eq "unknown"
     end
 
     it 'should map string to delivery_requested' do
