@@ -1,6 +1,7 @@
 describe VaBallotRequest do
 
   it_behaves_like "addressable", VaBallotRequest, :va_ballot_request
+  it_behaves_like "pdfable", VaBallotRequest, :va_ballot_request
   it_behaves_like "has ssn_four", :va_ballot_request, false
 
   let (:request) { create :va_ballot_request }

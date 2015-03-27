@@ -1,4 +1,9 @@
 FactoryGirl.define do
+
+  sequence :email do |n|
+    "person#{n}@gmail.com"
+  end
+
   factory :name do
     first_name Faker::Name.first_name
     last_name  Faker::Name.last_name
@@ -41,7 +46,7 @@ FactoryGirl.define do
   end
 
   factory :user do
-    email Faker::Internet.email
+    email
     password Faker::Internet.password(8, 12)
   end
 
