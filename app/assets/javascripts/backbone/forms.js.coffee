@@ -147,6 +147,7 @@ class window.BallotRequestView extends Backbone.View
     $clicked = $(evt.currentTarget)
     page_number = $clicked.parents('.page').data('page-number')
     @show_page(page_number+delta) if @validate_page(page_number)
+    @scrollTo('#form-top')
 
   first_page: ->
     if brzvt.errors? then '*' else 1
@@ -158,7 +159,6 @@ class window.BallotRequestView extends Backbone.View
         $(page).show()
       else
         $(page).hide()
-    @scrollTo('#form-top')
     $('.next-page').hide() if page_number is '*'
     $('.prev-page').hide() if page_number is '*'
 
