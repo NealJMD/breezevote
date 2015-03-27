@@ -9,8 +9,11 @@
 </head>
 <body>
 
+<%= render 'shared/menu' %>
 <%= render 'shared/header' %>
-<%= yield %>
+<div id="main" class="sliding">
+  <%= yield %>
+</div>
 
 </body>
 </html>

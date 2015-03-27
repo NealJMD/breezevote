@@ -1,12 +1,15 @@
 .color-immersion {
   width: 100%;
   margin: 0;
-  padding: 80px 0;
+  padding: 0;
   float: left;
   overflow: hidden;
   .full-width-title {
     width: 100%;
     text-align: center;
+  }
+  &.default {
+    background: $light_blue;
   }
 }
 .full-screen {

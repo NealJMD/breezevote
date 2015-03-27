@@ -1,0 +1,42 @@
+@mixin shadow($x, $y, $blur, $spread, $opacity) {
+  -webkit-box-shadow: $x $y $blur $spread rgba(0,0,0,$opacity);
+  -moz-box-shadow:    $x $y $blur $spread rgba(0,0,0,$opacity);
+  box-shadow:         $x $y $blur $spread rgba(0,0,0,$opacity);
+}
+
+@mixin transition($property, $duration, $easing, $delay: 0s) {
+  -webkit-transition: $property $duration $easing $delay;
+     -moz-transition: $property $duration $easing $delay;
+       -o-transition: $property $duration $easing $delay;
+          transition: $property $duration $easing $delay;
+}
+
+@mixin full-width-after($maxWidth, $padding: 2%) {
+  @media(max-width: $maxWidth) {
+    width: 100% - 2 * $padding;
+    padding: 0 $padding;
+  }
+}
+@mixin centered-to-full($width, $padding: 2%) {
+  width: $width;
+  margin: 0 auto;
+  @include full-width-after($width, $padding);
+}
+
+// Clearfix
+// --------
+// For clearing floats like a boss h5bp.com/q
+@mixin clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}

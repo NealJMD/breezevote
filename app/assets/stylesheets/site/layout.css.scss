@@ -1,41 +1,5 @@
-// Clearfix
-// --------
-// For clearing floats like a boss h5bp.com/q
-@mixin clearfix {
-  *zoom: 1;
-  &:before,
-  &:after {
-    display: table;
-    content: "";
-    // Fixes Opera/contenteditable bug:
-    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
-    line-height: 0;
-  }
-  &:after {
-    clear: both;
-  }
-}
-@mixin full-width-after($maxWidth, $padding: 2%) {
-  @media(max-width: $maxWidth) {
-    width: 100% - 2 * $padding;
-    padding: 0 $padding;
-  }
-}
-@mixin centered-to-full($width, $padding: 2%) {
-  width: $width;
-  margin: 0 auto;
-  @include full-width-after($width, $padding);
-}
-
-
-
 body {
-  background-color: $light_blue;
-}
-.main {
-  background-color: $light_blue;
-  padding-top: 50px;
-  @include clearfix();
+  background-color: $dark_gray;
 }
 .content {
   @include clearfix();
@@ -45,10 +9,12 @@ body {
 .logo {
   font-family: $sansff;
   color: white;
+  font-size: 25px;
 }
 .header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   color: white;
   z-index: 1000000;
@@ -58,5 +24,61 @@ body {
     font-size: 25px;
   }
   .logo { float: left; }
-  .more { float: right; }
+  .more {
+    float: right;
+    cursor: pointer;
+  }
+}
+
+
+// Slider and menu
+$slider_width: 240px;
+.sliding {
+  left: 0;
+  @include transition(left, 300ms, ease);
+  &.revealed {
+    left: -1 * $slider_width !important;
+  }
+}
+#main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  overflow: scroll;
+  z-index: 1000;
+  @include shadow(0px, 0px, 20px, 2px, 0.55);
+  @include clearfix();
+}
+#menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: $slider_width;
+  background: #333;
+  color: white;
+  z-index: 990;
+  .hline {
+    width: 200px;
+    margin: 0 20px;
+    border-bottom: 1px solid #222;
+    border-top: 1px solid #666;
+  }
+  .row {
+    width: 200px;
+    padding: 20px;
+    margin: 0;
+    @include transition(background-color, 200ms, linear);
+    &:hover {
+      background-color: #222;
+    }
+    &.first { border-top: none; }
+    &.last { border-bottom: none; }
+  }
+  a {
+    color: white;
+    text-decoration: none;
+  }
 }

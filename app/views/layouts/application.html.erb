@@ -10,11 +10,11 @@
 <body>
 
 <%= render 'shared/header' %>
-<!-- <div class="main"> -->
-  <!-- <div class="content"> -->
-    <%= yield %>
-  <!-- </div> -->
-<!-- </div> -->
+<%= render 'shared/menu' %>
+<div id="main" class="sliding">
+  <%= yield %>
+</div>
+
 
 </body>
 </html>
