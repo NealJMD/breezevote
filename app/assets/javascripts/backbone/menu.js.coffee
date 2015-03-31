@@ -11,5 +11,5 @@ class window.MenuView extends Backbone.View
 
   initialize: ->
 
-$ ->
+$(document).on 'page:change', ->
   menu_view = new MenuView()

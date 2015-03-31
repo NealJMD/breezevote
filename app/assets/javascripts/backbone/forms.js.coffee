@@ -192,7 +192,7 @@ class window.BallotRequestView extends Backbone.View
   template: (attributes)->
     JST["forms/ballot_request"](attributes)
 
-$ ->
+$(document).on 'page:change', ->
   init = brzvt.doc || {}
   request_model = new BallotRequest(init)
   request_view = new BallotRequestView(model: request_model)
