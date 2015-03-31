@@ -10,6 +10,7 @@ This Rails application is a website that manages the paperwork for absentee voti
   - with completed form
 - improve backbone form
   - add more helper text
+  - use gon for user part
 - data
   - add election model
   * add political parties to users and documents

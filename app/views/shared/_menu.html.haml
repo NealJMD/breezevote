@@ -2,6 +2,23 @@
   = link_to root_url do
     .row
       .logo breezevote
+  - if user_signed_in?
+    - docs = current_user.documents
+    - docs.each_with_index do |document, ii|
+      .hline
+      = link_to document do
+        .row #{document.state} #{document.type} #{"(#{ii+1})" if docs.size > 1}
+    .hline
+    = link_to destroy_user_session_path, :method => :delete do
+      .row Sign out
+  - else
+    .hline
+    = link_to new_user_registration_path do
+      .row Sign up
+    .hline
+    = link_to new_user_session_path do
+      .row Sign in
+
   .hline
   = link_to "mailto:#{CONTACT_EMAIL}" do
     .row Get in touch
