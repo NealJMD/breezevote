@@ -27,7 +27,7 @@
   width: (100% - (4 * $gutter)) / 3;
   margin-left: $gutter;
   float: left;
-  @media(max-width: 500px) {
+  @media(max-width: 650px) {
     width: 100% - (2 * $gutter);
     padding: 0 $gutter;
     margin-left: 0;
