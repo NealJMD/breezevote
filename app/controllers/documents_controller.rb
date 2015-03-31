@@ -26,6 +26,8 @@ class DocumentsController < ApplicationController
       return render :new
     end
 
+    @document.user = current_user
+
     if @document.save
       redirect_to @document, notice: '#{title} was successfully created.'
     else
