@@ -28,9 +28,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def user_strong_params
     params.require(:user).permit(:email, :password)
+  end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
   end
 
 end

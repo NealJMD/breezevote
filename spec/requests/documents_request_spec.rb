@@ -4,12 +4,18 @@ describe DocumentsController, :type => :request do
   let(:model) { class_sym.to_s.camelcase.constantize }
   let(:class_name) { class_sym.to_s }
   let(:base_path) { "/#{class_name.pluralize}" }
+  let(:show_path) { "#{base_path}/#{@doc.id}" }
+  let(:other_show_path) { "#{base_path}/#{@other_doc.id}" }
 
   let(:params) { params_for(model, class_sym) }
   let(:bad_params) { params_for(model, class_sym) }
+  let(:other_params) { params_for(model, class_sym) }
 
   let(:user_params) { attributes_for :user }
+  let(:other_user_params) { attributes_for :user }
   let(:bad_user_params) { attributes_for :user }
+  let(:login_params) { {email: user_params[:email], password: user_params[:password]} }
+  let(:other_login_params) { {email: other_user_params[:email], password: other_user_params[:password]} }
 
 
   before :each do
@@ -170,6 +176,77 @@ describe DocumentsController, :type => :request do
 
   end
 
+  describe :show do
+
+    before :each do
+      post base_path, { class_sym => params, user: user_params }
+      @doc = model.last
+      delete destroy_user_session_path
+      post base_path, { class_sym => other_params, user: other_user_params }
+      @other_doc = model.last
+      delete destroy_user_session_path
+    end
+
+    describe :not_logged_in do
+
+      before :each do
+        delete destroy_user_session_path
+        get edit_user_registration_path
+        expect(response).not_to be_success
+      end
+
+      it "should not be able to access their document" do
+        expect { get show_path }.to raise_error(ActionController::RoutingError)
+      end
+
+      it "should not be able to access the other user's document" do
+        expect { get other_show_path }.to raise_error(ActionController::RoutingError)
+      end
+
+    end
+
+    describe :logged_in do
+
+      describe :as_primary_user do
+        before :each do
+          delete destroy_user_session_path
+          post user_session_path, user: login_params
+          get edit_user_registration_path
+          expect(response).to be_success
+        end
+
+        it "should be able to access their document" do
+          get show_path
+          expect(response).to be_success
+          expect(response).to render_template :show
+        end
+
+        it "should not be able to access the other user's document" do
+          expect { get other_show_path }.to raise_error(ActionController::RoutingError)
+        end
+      end
+
+      describe :as_other_user do
+        before :each do
+          delete destroy_user_session_path
+          post user_session_path, user: other_login_params
+          get edit_user_registration_path
+          expect(response).to be_success
+        end
+
+        it "should be able to access their document" do
+          get other_show_path
+          expect(response).to be_success
+          expect(response).to render_template :show
+        end
+
+        it "should not be able to access the main user's document" do
+          expect { get show_path }.to raise_error(ActionController::RoutingError)
+        end
+      end
+    end
+
+  end
 
   describe :update do
 
@@ -177,7 +254,8 @@ describe DocumentsController, :type => :request do
     let(:address) { "1 Infinite Loop"}
 
     before :each do
-      model.new(params).save!
+      post base_path, { class_sym => params, user: user_params }
+      delete destroy_user_session_path
       @existing = model.last
       @last_updated = @existing.updated_at
       @path = "#{base_path}/#{@existing.id}"
@@ -186,39 +264,91 @@ describe DocumentsController, :type => :request do
       @new_params[:current_address_attributes][:street_address] = address
     end
 
-    describe :success do
-      it "should redirect" do
-        expect{ put @path, class_sym => @new_params }.to change{ model.count }.by 0
-        expect(response).to redirect_to(model.last)
+    describe :logged_in do
+
+      describe :as_primary_user do
+
+        before :each do
+          delete destroy_user_session_path
+          post user_session_path, user: login_params
+        end
+
+        describe :good_params do
+          it "should redirect" do
+            expect{ put @path, class_sym => @new_params }.to change{ model.count }.by 0
+            expect(response).to redirect_to(model.last)
+          end
+
+          it "should update existing addresses" do
+            expect{ put @path, class_sym => @new_params }.to change{ Address.count }.by 0
+            expect(model.last.current_address.street_address).to eq address
+          end
+
+          it "should update existing name" do
+            expect{ put @path, class_sym => @new_params }.to change{ Name.count }.by 0
+            expect(model.last.name.first_name).to eq first_name
+          end
+        end
+
+        describe :bad_params do
+          it "should not save update timestamp or redirect" do
+            expect{ put @path, class_sym => bad_params }.to change{ model.count }.by 0
+            expect(model.last.updated_at).to eq @last_updated
+            expect(response).to render_template :edit
+            expect(response).to be_success
+          end
+
+          it "should not update addresses" do
+            expect{ put @path, class_sym => bad_params }.to change{ Address.count }.by 0
+            expect(model.last.current_address.street_address).not_to eq address
+          end
+
+          it "should not update name" do
+            expect{ put @path, class_sym => bad_params }.to change{ Name.count }.by 0
+            expect(model.last.name.first_name).not_to eq first_name
+          end
+        end
+
       end
 
-      it "should update existing addresses" do
-        expect{ put @path, class_sym => @new_params }.to change{ Address.count }.by 0
-        expect(model.last.current_address.street_address).to eq address
+      describe :as_other_user do
+
+        before :each do
+          delete destroy_user_session_path
+          post user_session_path, user: other_login_params
+        end
+
+        it "should 404 with good params" do
+          expect{ put @path, class_sym => @new_params }.to raise_error(ActionController::RoutingError)
+          expect(model.last.name.first_name).not_to eq first_name
+          expect(model.last.current_address.street_address).not_to eq address
+        end
+
+        it "should 404 with bad params" do
+          expect{ put @path, class_sym => bad_params }.to raise_error(ActionController::RoutingError)
+          expect(model.last.name.first_name).not_to eq first_name
+          expect(model.last.current_address.street_address).not_to eq address
+        end
       end
 
-      it "should update existing name" do
-        expect{ put @path, class_sym => @new_params }.to change{ Name.count }.by 0
-        expect(model.last.name.first_name).to eq first_name
-      end
     end
 
-    describe :rejection do
-      it "should not save update timestamp or redirect" do
-        expect{ put @path, class_sym => bad_params }.to change{ model.count }.by 0
-        expect(model.last.updated_at).to eq @last_updated
-        expect(response).to render_template :edit
-        expect(response).to be_success
+    describe :not_logged_in do
+
+      before :each do
+        delete destroy_user_session_path
       end
 
-      it "should not update addresses" do
-        expect{ put @path, class_sym => bad_params }.to change{ Address.count }.by 0
+      it "should 404 with good params" do
+        expect{ put @path, class_sym => @new_params }.to raise_error(ActionController::RoutingError)
+        expect(model.last.name.first_name).not_to eq first_name
         expect(model.last.current_address.street_address).not_to eq address
       end
 
-      it "should not update name" do
-        expect{ put @path, class_sym => bad_params }.to change{ Name.count }.by 0
+      it "should 404 with bad params" do
+        expect{ put @path, class_sym => bad_params }.to raise_error(ActionController::RoutingError)
         expect(model.last.name.first_name).not_to eq first_name
+        expect(model.last.current_address.street_address).not_to eq address
       end
     end
 

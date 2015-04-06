@@ -34,6 +34,7 @@ This Rails application is a website that manages the paperwork for absentee voti
   * set up heroku
   * set up s3 with restricted access
   - set up Mandrill
+  - set up google analytics
   - set up with domain name
   - set up breezevote email
 

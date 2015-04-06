@@ -57,6 +57,7 @@ class DocumentsController < ApplicationController
     
     def set_document
       @document = model.find(params[:id])
+      not_found if @document.blank? || @document.user.blank? || @document.user != current_user
     end
 
     def model
