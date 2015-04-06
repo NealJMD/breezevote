@@ -13,7 +13,9 @@ This Rails application is a website that manages the paperwork for absentee voti
   - use gon for user part
 - data
   - add election model
-  * add political parties to users and documents
+  - add political parties to users and documents
+  * delete records on user destroy
+  * write request tests for users
   * restrict access
   - move concerns to inheritance
   - set up DelayedJob to handle PDF creation
@@ -25,6 +27,7 @@ This Rails application is a website that manages the paperwork for absentee voti
 - layout
   - create user page
   * create devise views
+  - put sign up/sign in in sidebar
   - create logo
   * create /vision page
   - add flash messages to layout <%= notice %> <%= alert %>

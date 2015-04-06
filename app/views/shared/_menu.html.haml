@@ -9,6 +9,9 @@
       = link_to document do
         .row #{document.state} #{document.type} #{"(#{ii+1})" if docs.size > 1}
     .hline
+    = link_to edit_user_registration_path do
+      .row Edit account
+    .hline
     = link_to destroy_user_session_path, :method => :delete do
       .row Sign out
   - else

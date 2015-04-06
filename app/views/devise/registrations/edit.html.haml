@@ -1,18 +1,23 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, required: true, autofocus: true
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      %p
-        Currently waiting confirmation for: #{resource.unconfirmed_email}
-    = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
-    = f.input :password_confirmation, required: false
-    = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
-  .form-actions
-    = f.button :submit, "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+.color-immersion.full-screen.default
+  .content
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      .section
+        %h2.thin Edit account
+        = f.error_notification
+      .section
+        %h4 Change email or create a new password
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          %p Currently waiting confirmation for: #{resource.unconfirmed_email}
+        = f.input :email, autofocus: true, wrapper_html: { class: 'span-12' }
+        = f.input :password, autocomplete: "off", label: "New Password", wrapper_html: { class: 'span-6' }
+        = f.input :password_confirmation, label: "Confirm New Password", wrapper_html: { class: 'span-6' }
+      .section
+        %h4 Authorize your change
+        = f.input :current_password, wrapper_html: { class: 'span-12' }
+      .section
+        .field.span-4
+          = f.button :submit, "Update"
+    .form
+      .section
+        %h2.thin Delete my account
+      %p Click #{link_to "here", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete} to cancel your account. This will delete all of your records from our system, so please be sure this is what you want.
