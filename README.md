@@ -28,7 +28,7 @@ This Rails application is a website that manages the paperwork for absentee voti
   - create user page
   - put sign up/sign in in sidebar
   - create logo
-  * create /vision page
+  - create /vision page
   - add flash messages to layout <%= notice %> <%= alert %>
 - deploy
   * set up heroku
