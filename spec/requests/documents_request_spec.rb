@@ -30,6 +30,22 @@ describe DocumentsController, :type => :request do
       expect{ post base_path, { class_sym => ps, user: ups } }.to change{ User.count }.by 0
     end
   end
+  shared_examples_for "it logged in" do
+    it "should be logged in after the request" do
+      post base_path, { class_sym => ps, user: ups }
+      get edit_user_registration_path
+      expect(response).to be_success
+      expect(response).to render_template :edit
+    end
+  end
+  shared_examples_for "it did not log in" do
+    it "should not be logged in after the request" do
+      post base_path, { class_sym => ps, user: ups }
+      get edit_user_registration_path
+      expect(response).not_to be_success
+      expect(response).to redirect_to(new_user_session_path)
+    end
+  end
   shared_examples_for "it saved a document" do
     it "should save a document" do
       expect{ post base_path, { class_sym => ps, user: ups } }.to change{ model.count }.by 1
@@ -81,6 +97,7 @@ describe DocumentsController, :type => :request do
           let(:ups) { user_params }
           it_should_behave_like "it created a user"
           it_should_behave_like "it saved a document"
+          it_should_behave_like "it logged in"
         end
 
         describe :bad_params do
@@ -88,6 +105,7 @@ describe DocumentsController, :type => :request do
           let(:ups) { user_params }
           it_should_behave_like "it created a user"
           it_should_behave_like "it did not save a document"
+          it_should_behave_like "it logged in"
         end
 
         describe :bad_user_params do
@@ -95,6 +113,7 @@ describe DocumentsController, :type => :request do
           let(:ups) { bad_user_params }
           it_should_behave_like "it did not create a user"
           it_should_behave_like "it did not save a document"
+          it_should_behave_like "it did not log in"
         end
 
         describe :revised_params do
@@ -108,6 +127,7 @@ describe DocumentsController, :type => :request do
           let(:current_email) { user_params[:email] }
           it_should_behave_like "it did not create a user"
           it_should_behave_like "it saved a document"
+          it_should_behave_like "it logged in"
         end
       end
 
@@ -122,6 +142,7 @@ describe DocumentsController, :type => :request do
         let(:ups) { user_params }
         it_should_behave_like "it did not create a user"
         it_should_behave_like "it saved a document"
+        it_should_behave_like "it logged in"
 
         describe :incorrect_login do
 
@@ -134,6 +155,7 @@ describe DocumentsController, :type => :request do
           let(:ups) { @bad_login_params }
           it_should_behave_like "it did not create a user"
           it_should_behave_like "it did not save a document"
+          it_should_behave_like "it did not log in"
         end
       end
 
@@ -142,6 +164,7 @@ describe DocumentsController, :type => :request do
         let(:ups) { nil }
         it_should_behave_like "it did not create a user"
         it_should_behave_like "it did not save a document"
+        it_should_behave_like "it did not log in"
       end
     end
 
