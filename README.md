@@ -26,7 +26,6 @@ This Rails application is a website that manages the paperwork for absentee voti
   - add mailing address to second page
 - layout
   - create user page
-  * create devise views
   - put sign up/sign in in sidebar
   - create logo
   * create /vision page
