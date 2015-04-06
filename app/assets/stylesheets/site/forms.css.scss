@@ -1,5 +1,5 @@
 .form {
-  label {
+  label, .inline-error {
     text-transform: capitalize;
     display: block;
     margin: 15px 0 3px;
@@ -12,6 +12,9 @@
     background-color: white;
     font-family: $sansff;
     width: 90%;
+    &[type="checkbox"] {
+      width: 20px;
+    }
   }
   input[type="radio"]{
     float: left;
@@ -81,12 +84,12 @@
   [data-reveal-field] {
     display: none;
   }
-  .field.error {
+  .error {
     position: relative;
     input, select, .radio-option {
       border-color: $dark_red;
     }
-    label.inline-error {
+    .inline-error {
       display: block;
       font-size: 14px;
       color: $dark_red;
@@ -95,7 +98,11 @@
       min-width: 200px;
     }
   }
-  .button {
+  .error_notification {
+    color: $dark_red;
+    font-weight: 700;
+  }
+  .button, input[type="submit"] {
     background: $transparent_black;
     color: white;
     cursor: pointer;
@@ -147,7 +154,7 @@
       .span-#{$i} {
         width: 98%;
         padding-bottom: $padding_bottom;
-        &.error label.inline-error {
+        &.error .inline-error {
           top: 50px;
         }
       }

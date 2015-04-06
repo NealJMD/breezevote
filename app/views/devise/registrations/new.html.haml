@@ -1,10 +1,14 @@
-%h2 Sign up
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email, required: true, autofocus: true
-    = f.input :password, required: true
-    = f.input :password_confirmation, required: true
-  .form-actions
-    = f.button :submit, "Sign up"
-= render "devise/shared/links"
+.color-immersion.full-screen.default
+  .content
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      .section
+        %h2.thin Sign up
+      = f.error_notification
+      .section
+        = f.input :email, required: true, autofocus: true, wrapper_html: { class: 'span-12' }
+        = f.input :password, required: true, wrapper_html: { class: 'span-6' }
+        = f.input :password_confirmation, required: true, wrapper_html: { class: 'span-6' }
+      .section
+        .field.span-4
+          = f.button :submit, "Sign up"
+    = render "devise/shared/links"
