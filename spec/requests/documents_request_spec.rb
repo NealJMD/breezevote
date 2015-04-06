@@ -27,7 +27,7 @@ describe DocumentsController, :type => :request do
   end
   shared_examples_for "it did not create a user" do
     it "should not create a user" do
-      expect{ post base_path, { class_sym => params, user: bad_user_params } }.to change{ User.count }.by 0
+      expect{ post base_path, { class_sym => ps, user: ups } }.to change{ User.count }.by 0
     end
   end
   shared_examples_for "it saved a document" do
