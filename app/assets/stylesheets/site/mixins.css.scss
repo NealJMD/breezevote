@@ -14,7 +14,8 @@
 @mixin full-width-after($maxWidth, $padding: 2%) {
   @media(max-width: $maxWidth) {
     width: 100% - 2 * $padding;
-    padding: 0 $padding;
+    padding-left: $padding;
+    padding-right: $padding;
   }
 }
 @mixin centered-to-full($width, $padding: 2%) {
