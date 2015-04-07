@@ -39,9 +39,21 @@ describe Address do
   end
 
   describe :state do
-    it "should be invalid with a not real state" do
-      address.state = "Nicaragua"
+    it "should be invalid with a foreign state" do
+      address.state = "Managua"
       expect(address).to be_invalid
+    end
+
+    it "should be valid with a foreign state if abroad" do
+      address.state = "Managua"
+      address.country = "Nicaragua"
+      expect(address).to be_valid
+    end
+
+    it "should be valid with no state if abroad" do
+      address.state = nil
+      address.country = "Nicaragua"
+      expect(address).to be_valid
     end
 
     it "should be invalid with a not real state code" do

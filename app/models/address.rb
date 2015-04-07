@@ -3,13 +3,13 @@ class Address < ActiveRecord::Base
   validates :street_address, presence: true, allow_blank: false, length: { in: 1..100 }
   validates :city, presence: true, allow_blank: false, length: { in: 1..100 }
   validates :country, presence: true, allow_blank: false, length: { in: 1..100 }
-  validates :state, inclusion: { in: STATE_CODES, message: "must be a valid two letter state code" }
+  validates :state, inclusion: { in: STATE_CODES, message: "must be a valid two letter state code" }, :unless => :is_abroad?
 
   validates :apartment, allow_blank: true, length: { in: 1..100 }
   validates :zip, allow_blank: true, length: { in: 1..100 }
 
   before_validation :standardize_state
-  before_save :standardize_usa
+  before_validation :standardize_usa
 
   STANDARD_USA = "USA"
 
@@ -28,7 +28,7 @@ class Address < ActiveRecord::Base
 
   def standardize_usa
     acceptable = ["united states of america", "united states", "america", "usa", "us"]
-    if acceptable.include? country.downcase.strip.gsub(/[^a-z ]/, '')
+    if country.present? and acceptable.include? country.downcase.strip.gsub(/[^a-z ]/, '')
       self.country = STANDARD_USA
     end
   end
