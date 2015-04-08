@@ -1,4 +1,13 @@
 <style>
+  @font-face {
+    font-family: 'Droid Sans Mono';
+    src: url(<%= asset_data_base64('DroidSansMono-webfont.eot') %>);
+    src: url(<%= asset_data_base64('DroidSansMono-webfont.eot') %>) format('embedded-opentype'),
+         url(<%= asset_data_base64('DroidSansMono-webfont.woff') %>) format('woff'),
+         url(<%= asset_data_base64('DroidSansMono-webfont.ttf') %>) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
   <% if document_name == "nc_ballot_request" -%>
     .nc_ballot_request {
       background-image: url(<%= asset_data_base64("pdfs/nc-request-bg.png") %>);
