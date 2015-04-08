@@ -121,8 +121,8 @@ class window.BallotRequestView extends Backbone.View
     @render_server_errors()
     @show_page(@first_page())
 
-  prevalidate: (field, value) ->
-    return false if field.indexOf '(' > -1 or field.indexOf ')' > -1
+  prevalidate: (field, value) ->\
+    return false if field.indexOf('(') > -1 or field.indexOf(')') > -1
     error_message = @model.preValidate(field, value)
     if error_message
       brzvt.utils.invalid(this, field, error_message)
