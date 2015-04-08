@@ -94,7 +94,7 @@
 
       %select{ class: 'year', data: { 'field-name': "#{@field}(1i)" } }
         - val = getVal(splitted, 0)
-        - options = [1900..2000].reverse()
+        - options = [1900..2015].reverse()
         - options.unshift("")
         - for yy in options
           %option{ value: yy, selected: same(yy, val) }= yy
