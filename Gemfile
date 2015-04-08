@@ -43,6 +43,11 @@ group :test do
   gem 'faker'
 end
 
+group :production do
+  gem 'wkhtmltopdf-heroku', '~> 2.12'
+end
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
