@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   documents = ['VaBallotRequest', 'NcBallotRequest']
   documents.each do |doc_class|
-    resources doc_class.underscore.to_sym, controller: 'documents', type: doc_class do
+    resources "#{doc_class.underscore}s".to_sym, controller: 'documents', type: doc_class do
       member do
         get 'preview'
       end

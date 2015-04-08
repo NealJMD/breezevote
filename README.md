@@ -22,7 +22,6 @@ This Rails application is a website that manages the paperwork for absentee voti
 - government forms
   - handle political parties
   - handle elections
-  * handle addresses abroad
   - add mailing address to second page
 - layout
   - create user page
@@ -34,6 +33,7 @@ This Rails application is a website that manages the paperwork for absentee voti
 - deploy
   * set up s3 with restricted access
   - restrict production access to preview routes
+  - set up Unicorn
   - set up Mandrill
   - set up google analytics
   - set up with domain name
