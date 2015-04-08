@@ -3,7 +3,7 @@
 .va_ballot_request {
   font-size: 40px;
   .ssn_four, .reason_code, .zip {
-    letter-spacing: 1px;
+    letter-spacing: 30px;
     &.zip         { font-size: 45px; }
     &.ssn_four    { font-size: 40px; }
     &.reason_code { font-size: 55px; }
@@ -14,23 +14,23 @@
     .last_name        { top: 340px; left: 620px; }
     .suffix           { top: 430px; left: 1130px; }
   }
-  .ssn_four         { top: 430px; left: 1900px; }
-  .reason_support   { top: 810px; left: 1090px; }
-  .reason_code      { top: 810px; left: 690px; }
+  .ssn_four         { top: 420px; left: 1900px; }
+  .reason_support   { top: 800px; left: 1090px; }
+  .reason_code      { top: 800px; left: 690px; }
   .registered_address {
     .street_address   { top: 1110px; left: 590px; }
     .apartment        { top: 1110px; left: 1800px; }
     .city             { top: 1180px; left: 540px; }
-    .zip              { top: 1180px; left: 1820px; }
+    .zip              { top: 1170px; left: 1820px; }
     .state            { display: none; }
     .country          { display: none; }
   }
   .current_address {
     .street_address   { top: 1390px; left: 600px; }
     .apartment        { top: 1395px; left: 1860px; }
-    .city             { top: 1470px; left: 545px; }
-    .state            { top: 1470px; left: 1120px; }
-    .country          { top: 1470px; left: 1235px; }
+    .city             { top: 1460px; left: 545px; }
+    .state            { top: 1460px; left: 1120px; }
+    .country          { top: 1460px; left: 1235px; }
     .zip              { top: 1460px; left: 1550px; }
   }
 }

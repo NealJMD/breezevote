@@ -19,6 +19,9 @@
     position: relative;
     float: left;
   }
+  .status, .auxiliary-tick {
+    display: none;
+  }
 }
 
 @import "nc-ballot-request.css.scss";

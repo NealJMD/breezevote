@@ -22,14 +22,24 @@
     .apartment        { top: 1365px; left: 30px; }
     .city             { top: 1330px; left: 1070px; }
     .state            { top: 1330px; left: 1640px; }
-    .country          { top: 1365px; left: 1640px; }
     .zip              { top: 1330px; left: 1820px; }
+    .country          { display: none; }
+    &.foreign {
+      .street_address   { top: 2310px; left: 20px; }
+      .apartment        { top: 2344px; left: 20px; }
+      .city             { top: 2380px; left: 20px; }
+      .state            { top: 2420px; left: 20px; }
+      .zip              { top: 2380px; left: auto; right: 1080px; }
+      .country          { top: 2420px; left: auto; right: 1080px; display: block; }
+      .tick-1           { top: 2300px; left: 1580px; display: block; }
+      .tick-2           { top: 2230px; left: 40px; display: block; }
+    }
   }
   .moved_recently {
     font-weight: bold;
     font-size: 50px;
-    .true  { top: 920px; left: 813px; }
-    .false { top: 920px; left: 715px; }
+    .true  { top: 905px; left: 813px; }
+    .false { top: 905px; left: 715px; }
   }
   .date_moved {
     .month, .day, .year { top: 990px; position: absolute; }

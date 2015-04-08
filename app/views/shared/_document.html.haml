@@ -8,10 +8,14 @@
     - if field.ends_with? "_id"
       - child = doc.send(field.chomp("_id").to_sym)
       - next if child.blank?
-      %div{ class: field.chomp("_id") }
+      - bonus_class = ""
+      - bonus_class = "foreign" if field.include? "address" and child.try(:is_abroad?)
+      %div{ class: "#{field.chomp("_id")} #{bonus_class}" }
         - child.attributes.each_pair do |subfield, subvalue|
           .positioned{ class: subfield }
             = render_value(subvalue)
+        .positioned.auxiliary-tick.tick-1 &times;
+        .positioned.auxiliary-tick.tick-2 &times;
     - else
       .positioned{ class: field }
         = render_value(value)
