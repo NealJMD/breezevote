@@ -15,8 +15,14 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  resources :va_ballot_requests, controller: 'documents', type: 'VaBallotRequest'
-  resources :nc_ballot_requests, controller: 'documents', type: 'NcBallotRequest'
+  documents = ['VaBallotRequest', 'NcBallotRequest']
+  documents.each do |doc_class|
+    resources doc_class.underscore.to_sym, controller: 'documents', type: doc_class do
+      member do
+        get 'preview'
+      end
+    end
+  end
 
   # Example resource route with options:
   #   resources :products do

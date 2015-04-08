@@ -32,8 +32,8 @@ This Rails application is a website that manages the paperwork for absentee voti
   - create /vision page
   - add flash messages to layout <%= notice %> <%= alert %>
 - deploy
-  * set up heroku
   * set up s3 with restricted access
+  - restrict production access to preview routes
   - set up Mandrill
   - set up google analytics
   - set up with domain name

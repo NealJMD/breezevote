@@ -15,5 +15,3 @@
 
     %p.explanation
       We would ask you to share, but breezevote is still a demo. #{ @document.delivery_requested? ? "And nothing's actually being mailed for the time being." : ""} Thanks for taking it for a ride, and if you're interested in becoming involved in the project, please #{ link_to 'get in touch', "mailto:#{CONTACT_EMAIL}"}.
-
-=# render "shared/document", doc: @document, document_name: @type.underscore

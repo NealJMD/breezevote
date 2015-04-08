@@ -1,13 +1,16 @@
 class DocumentsController < ApplicationController
   before_action :set_type
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview]
 
   def index
     redirect_to(root_path)
   end
 
   def show
+  end
 
+  def preview
+    render :preview, layout: 'pdf'
   end
 
   def new
