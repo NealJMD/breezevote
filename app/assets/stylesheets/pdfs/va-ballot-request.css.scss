@@ -3,7 +3,7 @@
 .va_ballot_request {
   font-size: 40px;
   .ssn_four, .reason_code, .zip {
-    letter-spacing: 1px;
+    letter-spacing: 5px;
     &.zip         { font-size: 45px; }
     &.ssn_four    { font-size: 40px; }
     &.reason_code { font-size: 55px; }
