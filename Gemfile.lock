@@ -38,6 +38,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    aws-sdk-v1 (1.54.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt (3.1.7)
     builder (3.2.2)
     climate_control (0.0.3)
@@ -190,6 +193,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk-v1
   coffee-rails (~> 4.0.0)
   country_select
   devise

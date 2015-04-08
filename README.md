@@ -11,12 +11,12 @@ This Rails application is a website that manages the paperwork for absentee voti
 - improve backbone form
   - add more helper text
   - use gon for user part
+  - write tests with Teaspoon/Konacha
 - data
   - add election model
   - add political parties to users and documents
   * delete records on user destroy
   * write request tests for users
-  * restrict access
   - move concerns to inheritance
   - set up DelayedJob to handle PDF creation
 - government forms
@@ -27,6 +27,7 @@ This Rails application is a website that manages the paperwork for absentee voti
 - layout
   - create user page
   - put sign up/sign in in sidebar
+  - create 404, 422, 500 pages
   - create logo
   - create /vision page
   - add flash messages to layout <%= notice %> <%= alert %>

@@ -12,7 +12,11 @@ module Pdfable
 
   def pdf_url
     return '/' unless has_pdf_asset?
-    '/'+pdf_asset.pdf.url
+    if Paperclip::Attachment.default_options[:storage] == :filesystem
+      return '/'+pdf_asset.pdf.url
+    else
+      return pdf_asset.pdf.url
+    end
   end
 
   def create_pdf(directive=nil)

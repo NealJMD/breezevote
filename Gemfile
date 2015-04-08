@@ -25,6 +25,7 @@ gem 'haml-rails', '~> 0.8'
 gem 'wicked_pdf'
 gem 'paperclip'
 gem 'devise'
+gem 'aws-sdk-v1'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
