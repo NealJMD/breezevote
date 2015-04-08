@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
   def index
-    @documents = model.all
+    redirect_to(root_path)
   end
 
   def show
