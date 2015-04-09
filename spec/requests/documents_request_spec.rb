@@ -57,10 +57,13 @@ describe DocumentsController, :type => :request do
       expect{ post base_path, { class_sym => ps, user: ups } }.to change{ model.count }.by 1
       expect(model.last.name.first_name).to eq ps[:name_attributes][:first_name]
       expect(model.last.delivery_requested?).to eq true
+      expect(response).to redirect_to(model.last)
+    end
+    it "should associate the document with the user" do
+      expect post base_path, { class_sym => ps, user: ups }
       expect(model.last.user).not_to be_blank
       expected_email = ups.blank? ? current_email : ups[:email]
       expect(model.last.user.email).to eq expected_email
-      expect(response).to redirect_to(model.last)
     end
     it "should save two addresses" do
       expect{ post base_path, { class_sym => ps, user: ups } }.to change{ Address.count }.by 2
@@ -79,14 +82,15 @@ describe DocumentsController, :type => :request do
       expect(response).to be_success
       expect(response).to render_template :new
     end
-    it "should no addresses" do
+    it "should save no addresses" do
+      prev_addresses = Address.last(2).map(&:street_address)
       expect{ post base_path, { class_sym => ps, user: ups } }.to change{ Address.count }.by 0
-      expected_addresses = [ps[:current_address_attributes][:street_address], ps[:registered_address_attributes][:street_address]]
-      expect(Address.last(2).map(&:street_address)).not_to match_array(expected_addresses)
+      expect(Address.last(2).map(&:street_address)).to match_array(prev_addresses)
     end
-    it "should no names" do
+    it "should save no names" do
+      prev_name = Name.last.first_name
       expect{ post base_path, { class_sym => ps, user: ups } }.to change{ Name.count }.by 0
-      expect( Name.last.first_name ).not_to eq ps[:name_attributes][:first_name]
+      expect( Name.last.first_name ).to eq prev_name
     end
   end
 
