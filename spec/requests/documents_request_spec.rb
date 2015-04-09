@@ -16,6 +16,7 @@ describe DocumentsController, :type => :request do
   let(:bad_user_params) { attributes_for :user }
   let(:login_params) { {email: user_params[:email], password: user_params[:password]} }
   let(:other_login_params) { {email: other_user_params[:email], password: other_user_params[:password]} }
+  let(:current_email){ nil }
 
 
   before :each do
@@ -62,7 +63,7 @@ describe DocumentsController, :type => :request do
     it "should associate the document with the user" do
       expect post base_path, { class_sym => ps, user: ups }
       expect(model.last.user).not_to be_blank
-      expected_email = ups.blank? ? current_email : ups[:email]
+      expected_email = current_email.blank? ? ups[:email] : current_email
       expect(model.last.user.email).to eq expected_email
     end
     it "should save two addresses" do
@@ -178,6 +179,40 @@ describe DocumentsController, :type => :request do
       end
     end
 
+    describe :logged_in do
+
+      let(:ps) { params }
+      let(:ups) { nil }
+      let(:current_email) { user_params[:email] }
+      
+      before :each do
+        post base_path, { class_sym => other_params, user: user_params }
+        delete destroy_user_session_path
+        post user_session_path, user: login_params
+        get edit_user_registration_path
+        expect(response).to be_success
+      end
+
+      describe :good_params do
+        it_should_behave_like "it did not create a user"
+        it_should_behave_like "it saved a document"
+        it_should_behave_like "it logged in"
+      end
+
+      describe "good params and login for another user" do
+        let(:ups) { other_user_params }
+        it_should_behave_like "it did not create a user"
+        it_should_behave_like "it saved a document"
+        it_should_behave_like "it logged in"
+      end
+
+      describe "good params and nonsense login" do
+        let(:ups) { {email: "herp@derp.twerp", password: 'asdfasdf'} }
+        it_should_behave_like "it did not create a user"
+        it_should_behave_like "it saved a document"
+        it_should_behave_like "it logged in"
+      end
+    end
   end
 
   describe :show do

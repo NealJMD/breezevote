@@ -38,6 +38,9 @@ This Rails application is a website that manages the paperwork for absentee voti
   - set up google analytics
   - set up with domain name
   - set up breezevote email
+- bugs
+  - weird inconsistent nil user when creating ballot request
+
 
 #### Running tests ####
 
