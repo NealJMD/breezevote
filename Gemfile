@@ -26,7 +26,6 @@ gem 'wicked_pdf'
 gem 'paperclip'
 gem 'devise'
 gem 'aws-sdk-v1'
-gem 'rails_12factor'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
@@ -45,6 +44,7 @@ end
 
 group :production do
   gem 'wkhtmltopdf-heroku', '~> 2.12'
+  gem 'rails_12factor'
 end
 
 
