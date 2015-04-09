@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   before_action :set_type
-  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview, :download]
 
   def index
     redirect_to(root_path)
@@ -11,6 +11,16 @@ class DocumentsController < ApplicationController
 
   def preview
     render :preview, layout: 'pdf'
+  end
+
+  def download
+    if not @document.has_pdf_asset?
+      redirect_to @document, notice: 'That document is not yet ready.'
+    elsif Paperclip::Attachment.default_options[:storage] == :filesystem
+      redirect_to '/'+@document.pdf_asset.pdf.url
+    else
+      redirect_to @document.pdf_asset.pdf.expiring_url(10) # for s3
+    end
   end
 
   def new

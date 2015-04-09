@@ -10,15 +10,6 @@ module Pdfable
     pdf_asset.present?
   end
 
-  def pdf_url
-    return '/' unless has_pdf_asset?
-    if Paperclip::Attachment.default_options[:storage] == :filesystem
-      return '/'+pdf_asset.pdf.url
-    else
-      return pdf_asset.pdf.url
-    end
-  end
-
   def create_pdf(directive=nil)
     if has_pdf_asset?
       return false unless directive == :overwrite

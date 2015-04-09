@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources "#{doc_class.underscore}s".to_sym, controller: 'documents', type: doc_class do
       member do
         get 'preview'
+        get 'download'
       end
     end
   end

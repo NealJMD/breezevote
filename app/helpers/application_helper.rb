@@ -22,4 +22,8 @@ module ApplicationHelper
     return ret.to_s.html_safe
   end
 
+  def download_link(doc)
+    send("download_#{doc.symbol.to_s}_path", doc)
+  end
+
 end
