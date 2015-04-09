@@ -9,8 +9,12 @@ module Ownable
       self.class.name[0..1].upcase
     end
 
-    def type
+    def purpose
       self.class.name[2..-1].underscore.split('_').join(' ')
+    end
+
+    def symbol
+      self.class.name.underscore.to_sym
     end
   end
 end
