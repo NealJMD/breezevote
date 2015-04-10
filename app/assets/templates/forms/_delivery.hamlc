@@ -4,5 +4,5 @@
 -                     ["client_handle", "I'll take care of sending it myself."]]
 
 %h4 Delivery Options
-.helper-text You need to sign your form, so we can't just send it in for you. If you like, we're happy to print and mail the form to you to sign, return address and postage included. Otherwise, you can just print, sign, and mail the completed form yourself.
+.helper-text Now you need to sign your form. If you like, we're happy to print and mail the form to you to sign, return address and postage included. Otherwise, you can just print, sign, and mail the completed form yourself.
 != data_input(field: "status", ctx: @ctx, type: "radio", span_width: 8, label: "", options: delivery_options)

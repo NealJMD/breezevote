@@ -2,7 +2,20 @@
   .content
     - if @document.delivery_requested? or @document.delivered?
       %h1.thin You're all set!
-      %p.explanation Your form has been filled out and will arrive at your home shortly. If you'd like to check it out, you can see the completed form #{link_to 'here', download_link(@document)}.
+      %p.explanation Your form has been filled out and will arrive at your home shortly. If you'd like to check it out, you can see the completed form #{link_to 'here', download_link(@document)}. Here's how you handle it from here:
+      .illustrated-steps
+        .step
+          = image_tag "drawings/closed-a.png"
+          %p.details 1. The form will arrive folded and sealed with your address on the outside.
+        .step
+          = image_tag "drawings/close-to-open.png"
+          %p.details 2. Break the seal and open it up to show your form. Sign and date on the line.
+        .step
+          = image_tag "drawings/open-to-close.png"
+          %p.details 3. Refold the form, folding the top leaf in first, then the bottom leaf over it - the opposite of the way you unfolded it.
+        .step
+          = image_tag "drawings/closed-b.png"
+          %p.details 4. The outside now shows the address of the local official responsible for your ballot, along with the unused postage. Reseal the form and pop it back in the mail!
     - else
       %h1.thin Here we go!
       .explanation
@@ -14,4 +27,4 @@
           %li Put a stamp on it, and put it in the mail. Your absentee ballot will arrive shortly!
 
     %p.explanation
-      We would ask you to share, but breezevote is still a demo. #{ @document.delivery_requested? ? "And nothing's actually being mailed for the time being." : ""} Thanks for taking it for a ride, and if you're interested in becoming involved in the project, please #{ link_to 'get in touch', "mailto:#{CONTACT_EMAIL}"}.
+      We would ask you to share on social media and whatnot, but breezevote is still a demo. #{ @document.delivery_requested? ? "And nothing's actually being mailed for the time being." : ""} Thanks for taking it for a ride, and if you're interested in becoming involved in the project, or you know someone that might be, please #{ link_to 'get in touch', "mailto:#{CONTACT_EMAIL}"}.

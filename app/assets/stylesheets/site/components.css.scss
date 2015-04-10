@@ -24,6 +24,38 @@
   left: 0;
   right: 0;
 }
+.illustrated-steps {
+  width: 100%;
+  .step {
+    width: 100%;
+    float: left;
+    img {
+      width: 30%;
+      float: left;
+    }
+    .details {
+      text-align: left;
+      margin-top: 20px;
+      float: left;
+      margin-left: 3%;
+      width: 67%;
+    }
+    @media(max-width: 500px) {
+      img {
+        width: 200px;
+        margin: 0 auto;
+        float: none;
+        display: block;
+      }
+      .details {
+        width: 80%;
+        text-align: left;
+        float: left;
+        margin: 5px 10% 30px;
+      }
+    }
+  }
+}
 
 .one-third {
   $gutter: 4%;
