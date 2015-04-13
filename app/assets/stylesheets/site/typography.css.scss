@@ -13,6 +13,9 @@ h1, h2, h3, h4, h5, h6 {
   &.thin {
     font-weight: 200;
   }
+  &.title {
+    margin-bottom: 22px;
+  }
   &.center {
     text-align: center;
   }
