@@ -2,6 +2,7 @@
   .color-immersion {
     &.landing-splash {
       padding: 260px 0;
+      @media(max-width: 520px) { padding: 120px 0; }
       background-color: $dark_red;
       background-image: asset-url('election_2008_queue_red.jpg');
       background-size: cover;
