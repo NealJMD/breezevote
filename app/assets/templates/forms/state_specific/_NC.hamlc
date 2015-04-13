@@ -9,13 +9,23 @@
 
 .nc-fields{ 'data-reveal-field': 'registered_address.state', 'data-reveal-value': 'NC' }
 
-  %h4 Information for North Carolina
+  .section
+    %h2.thin Information for North Carolina
 
-  .helper-text
-    North Carolina absentee ballots require you to provide proof of identification. Please enter the one of your choice.
+  .section
+    %h4 Proof of identification
+    .helper-text
+      North Carolina absentee ballots require you to provide proof of identification. Please enter the one of your choice. We take information security very seriously, and you can read more about our security policies 
+      %a{href: '/security'} here.
 
-  != data_input(field: "identification", options: identification_options, ctx: @ctx, type: "radio", span_width: 12)
+    != data_input(field: "identification", options: identification_options, ctx: @ctx, type: "radio", span_width: 12)
 
-  != data_input(field: "moved_recently", ctx: @ctx, type: "radio", span_width: 12, label: "Did you move to the address at which you're registered to vote in the last 30 days?", options: moved_options)
+  .section
+    %h4 Recent change of address
+    .helper-text If you have moved in the last 30 days to the address you gave above as your registered address, North Carolina wants to know.
+    != data_input(field: "moved_recently", ctx: @ctx, type: "radio", span_width: 12, label: "Did you move to the address at which you're registered to vote in the last 30 days?", options: moved_options)
 
-  != data_input(field: "birthdate", ctx: @ctx, type: "date", span_width: 6 )
+  .section
+    %h4 Date of birth
+    .helper-text Finally, North Carolina voters must provide their date of birth as an additional identification measure.
+    != data_input(field: "birthdate", ctx: @ctx, type: "date", span_width: 6 )

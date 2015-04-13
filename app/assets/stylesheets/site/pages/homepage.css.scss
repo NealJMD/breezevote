@@ -55,6 +55,9 @@
     }
     &.get-started {
       background-color: $light_blue;
+      a {
+        color: white;
+      }
       .homepage-form {
         margin-top: 20px;
       }

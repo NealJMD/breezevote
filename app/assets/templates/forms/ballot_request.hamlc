@@ -1,6 +1,10 @@
 .form#form-top
 
   .page{ 'data-page-number': 1 }
+
+    .section
+      %h1.thin Ready to get started?
+
     %p.intro This form will walk you through requesting an mail-in or absentee ballot. Please note that breezevote is currently only a demo. We haven't implemented the heavy-duty security we have planned, so best to enter dummy info for now.
     
     .section
@@ -36,6 +40,9 @@
       .button.next-page Last Step
 
   .page{ 'data-page-number': 3 }
+    .section
+      %h2.thin Account Information
+    
     .section
       != JST["forms/delivery"](ctx: this)
 
