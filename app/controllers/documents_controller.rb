@@ -32,6 +32,7 @@ class DocumentsController < ApplicationController
 
   def create
     @document = model.new(strong_params)
+    return render :new unless @document.valid?
 
     errors = authenticate_or_errors
     if errors.present?
@@ -39,9 +40,19 @@ class DocumentsController < ApplicationController
       return render :new
     end
 
-    @document.user = current_user
+    # if we've made it this far, we know we have a valid user and a valid document
+    # time to save and associate
+    success = false
+    @document.transaction do
+      @document.save!
+      @document.reload
+      sub = Submission.new({user_id: current_user.id})
+      sub.document = @document
+      sub.save!
+      success = true
+    end
 
-    if @document.save
+    if success
       redirect_to @document, notice: '#{title} was successfully created.'
     else
       render :new

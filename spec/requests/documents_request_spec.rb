@@ -114,9 +114,9 @@ describe DocumentsController, :type => :request do
         describe :bad_params do
           let(:ps) { bad_params }
           let(:ups) { user_params }
-          it_should_behave_like "it created a user"
+          it_should_behave_like "it did not create a user"
           it_should_behave_like "it did not save a document"
-          it_should_behave_like "it logged in"
+          it_should_behave_like "it did not log in"
         end
 
         describe :bad_user_params do
@@ -130,13 +130,12 @@ describe DocumentsController, :type => :request do
         describe :revised_params do
 
           before :each do
-            expect{ post base_path, { class_sym => bad_params, user: user_params } }.to change{ User.count }.by 1
+            expect{ post base_path, { class_sym => bad_params, user: user_params } }.to change{ User.count }.by 0
           end
 
           let(:ps) { params }
-          let(:ups) { nil }
-          let(:current_email) { user_params[:email] }
-          it_should_behave_like "it did not create a user"
+          let(:ups) { user_params }
+          it_should_behave_like "it created a user"
           it_should_behave_like "it saved a document"
           it_should_behave_like "it logged in"
         end
