@@ -42,21 +42,18 @@ class DocumentsController < ApplicationController
 
     # if we've made it this far, we know we have a valid user and a valid document
     # time to save and associate
-    success = false
-    @document.transaction do
-      @document.save!
-      @document.reload
-      sub = Submission.new({user_id: current_user.id})
-      sub.document = @document
-      sub.save!
-      success = true
+    sub = Submission.new({user_id: current_user.id})
+    begin
+      @document.transaction do
+        @document.save!
+        sub.document = @document
+        sub.save!
+      end
+    rescue ActiveRecord::RecordInvalid => exception
+      merge_errors(@document, sub.errors, 'submission')
+      return render :new
     end
-
-    if success
-      redirect_to @document, notice: '#{title} was successfully created.'
-    else
-      render :new
-    end
+    redirect_to @document, notice: '#{title} was successfully created.'
   end
 
   def update
