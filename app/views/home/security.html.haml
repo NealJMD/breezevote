@@ -1,0 +1,17 @@
+.color-immersion.default.full-screen
+
+  .content
+    %h1.thin Breezevote keeps your data locked down.
+
+    %p Here at Breezevote, protecting our users' data is a top priority. We have the good fortune of being able to leverage the existing security infrastructure of two of the world's top technology companies. Breezevote's platform is provided by #{link_to "Heroku", "https://www.heroku.com/policy/security"}, a software company which runs on the #{link_to "Amazon Web Services", "http://aws.amazon.com/security/"} infrastructure. Both companies employ regular security audits to search for any vulnerabilities, and by following their established best practices, we ensure that Breezevote maintains the highest level of system security.
+
+    %p Please note that some of these security measures have implementation costs beyond the time spent coding them, so they have not been completed for this demo. Asterisks (*) are used below to note sentences where our reality falls short of our plans.
+
+    %h4 Database Security
+    %p Our database is encryted-at-rest, which means that the fields can only have their values read by the authorized server program - the data stored on the hard drive is meaningless otherwise.* The database and operating system upon which it runs are entirely segregated in a virtual machine, restricting access to the local server program or a remote authenticated user.
+
+    %h4 Transmission Security
+    %p Our website uses the HTTPS protocol rather than the unencrypted HTTP protocol to ensure that all customer data is transmitted between the user's computer and the server in an encrypted format.* This ensures that your data is nothing but gibberish to anyone trying to snoop on it between you and us.
+
+    %h4 Physical Security
+    %p As all of our infrastructure is provided by Amazon, we are protected by their industry-leading physical security. They allow only a handful of authorized personnel to access their data-center floors. For more about Amazon's physical security, see the summary on #{link_to "Heroku's security page", "https://www.heroku.com/policy/security"}.

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'vision' => 'home#vision'
+  get 'security' => 'home#security'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
