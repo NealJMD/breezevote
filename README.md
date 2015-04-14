@@ -41,8 +41,6 @@ This Rails application is a website that manages the paperwork for absentee voti
   - Rob
     - show state and country on registered address as disabled fields
     - notice if age is underage
-- bugs
-  - weird inconsistent nil user when creating ballot request
 
 
 #### Running tests ####

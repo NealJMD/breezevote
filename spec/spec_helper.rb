@@ -31,6 +31,10 @@ RSpec.configure do |config|
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
 
+  # db cleaning
+  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.clean
+
   config.use_transactional_fixtures = true
 
   config.expect_with :rspec do |expectations|

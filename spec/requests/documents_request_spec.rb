@@ -20,6 +20,7 @@ describe DocumentsController, :type => :request do
 
 
   before :each do
+    @base_instance = create class_sym
     bad_params[:name_attributes][:first_name] = "    "
     bad_user_params[:password] = "adsf"
   end
