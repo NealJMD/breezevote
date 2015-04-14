@@ -7,6 +7,8 @@
 
     %p.intro This form will walk you through requesting an mail-in or absentee ballot. Please note that breezevote is currently only a demo. We haven't implemented the heavy-duty security we have planned, so best to enter dummy info for now.
     
+    %p.error-notice We noticed a few problems with the fields below. Check anything outlined in red and submit again.
+
     .section
       %h4 State
       .helper-text To get started, pick the state you're registered to vote.

@@ -168,8 +168,10 @@ class window.BallotRequestView extends Backbone.View
 
   render_server_errors: ->
     return unless brzvt.errors?
+    $('.error-notice').show()
     for field, errors of brzvt.errors
       error = brzvt.utils.sentence_case(field) + ' ' + errors[0]
+
       console.log(field, error)
       brzvt.utils.invalid(this, field, error)
 

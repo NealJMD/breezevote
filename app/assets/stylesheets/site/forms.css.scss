@@ -58,6 +58,9 @@
     line-height: 22px;
     margin-top: 4px;
   }
+  .error-notice {
+    display: none; // it must be revealed
+  }
   .section {
     float: left;
     width: 100%;
@@ -99,7 +102,7 @@
       min-width: 240px;
     }
   }
-  .error_notification {
+  .error_notification, .error-notice {
     color: $dark_red;
     font-weight: 700;
   }
