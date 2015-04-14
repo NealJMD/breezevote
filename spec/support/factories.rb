@@ -5,24 +5,24 @@ FactoryGirl.define do
   end
 
   factory :name do
-    first_name Faker::Name.first_name
-    last_name  Faker::Name.last_name
-    middle_name Faker::Name.last_name
-    suffix Faker::Name.suffix
+    first_name { Faker::Name.first_name }
+    last_name  { Faker::Name.last_name }
+    middle_name { Faker::Name.last_name }
+    suffix { Faker::Name.suffix }
   end
 
   factory :simple_name, class: Name do
-    first_name Faker::Name.first_name
-    last_name  Faker::Name.last_name
+    first_name { Faker::Name.first_name }
+    last_name  { Faker::Name.last_name }
   end
 
   factory :address, aliases: [:registered_address, :current_address] do
-    street_address Faker::Address.street_address
-    apartment Faker::Address.secondary_address
-    city Faker::Address.city
-    state Faker::Address.state
+    street_address { Faker::Address.street_address }
+    apartment { Faker::Address.secondary_address }
+    city { Faker::Address.city }
+    state { Faker::Address.state }
     country "United States of America"
-    zip Faker::Address.zip
+    zip { Faker::Address.zip }
   end
 
   factory :va_ballot_request do
@@ -47,7 +47,7 @@ FactoryGirl.define do
 
   factory :user do
     email
-    password Faker::Internet.password(8, 12)
+    password { Faker::Internet.password(8, 12) }
   end
 
 end
